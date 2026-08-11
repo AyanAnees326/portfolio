@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#F7F4EF" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#14120F" media="(prefers-color-scheme: dark)" />
+
+    <title>Ayan Anees — Web, App & AI Agent Development</title>
+    <meta
+      name="description"
+      content="Full-stack developer building web apps, mobile apps, and AI agents with React, TypeScript, Python and LLM tooling. Available for freelance projects."
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ayan Anees — Web, App & AI Agent Development" />
+    <meta
+      property="og:description"
+      content="Full-stack developer building web apps, mobile apps, and AI agents. Click through a live lab of the components I build with."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Instrument Serif + Instrument Sans are drawn as a family, so the
+         display and text faces share proportions and detailing rather than
+         merely coexisting. JetBrains Mono is loaded for code specimens only. -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      // Resolve the theme BEFORE first paint. Doing this in React would
+      // guarantee a flash of the wrong theme on every load.
+      //
+      // Light is the deliberate default — the OS setting is NOT consulted.
+      // This site is designed light-first; dark is an alternate the visitor
+      // opts into. A dark-mode OS should not decide how the work is presented
+      // on someone's first visit.
+      (function () {
+        try {
+          document.documentElement.setAttribute(
+            'data-theme',
+            localStorage.getItem('portfolio:theme') || 'light',
+          );
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'light');
+        }
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
