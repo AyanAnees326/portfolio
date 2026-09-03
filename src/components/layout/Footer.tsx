@@ -82,10 +82,7 @@ export function Footer() {
             © {new Date().getFullYear()} {site.name}. Set in Instrument Serif and Inter.
           </p>
           {/* Motorcycle easter egg */}
-          <p>
-            Built late, fuelled by chain lube and caffeine.{' '}
-            <span>try typing “rev”</span>
-          </p>
+          <p>try typing rev</p>
         </div>
       </div>
     </footer>
