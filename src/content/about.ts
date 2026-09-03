@@ -39,7 +39,7 @@ export const about = {
   experience: {
     organization: 'NICL',
     role: 'AI Intern',
-    period: 'June 2026–Present',
+    period: 'June 2026–September 2026',
     description:
       'Contributing to an internal AI operations and document-processing platform built around human-supervised workflows.',
   },

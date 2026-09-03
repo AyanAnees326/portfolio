@@ -73,6 +73,16 @@ export function RevOverlay({ active }: { active: boolean }) {
                 );
               })}
 
+              {/*
+                originX/originY, not transformOrigin: Framer rebuilds
+                transform-origin from these whenever it animates a transform,
+                so a two-value transformOrigin silently loses its Y. It also
+                sets transform-box: fill-box on SVG, which makes these
+                fractions of the line's own box rather than of the viewBox.
+                originY 1 is therefore the lower end of the needle, which is
+                the hub. Anything less pivots it up the shaft and throws the
+                tip off the dial.
+              */}
               <motion.line
                 x1="100"
                 y1="100"
@@ -81,7 +91,7 @@ export function RevOverlay({ active }: { active: boolean }) {
                 stroke="var(--redline)"
                 strokeWidth="2.5"
                 strokeLinecap="round"
-                style={{ originX: '100px', originY: '100px' }}
+                style={{ originX: 0.5, originY: 1 }}
                 initial={{ rotate: -85 }}
                 animate={{ rotate: [-85, 70, 58, 72, -85] }}
                 transition={{

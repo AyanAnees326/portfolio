@@ -12,7 +12,7 @@ describe('canonical public content', () => {
   });
 
   it('keeps internship and education facts aligned', () => {
-    expect(publicProfile.experience[0]).toMatchObject({ organization: 'NICL', role: 'AI Intern', end: 'Present' });
+    expect(publicProfile.experience[0]).toMatchObject({ organization: 'NICL', role: 'AI Intern', end: 'September 2026' });
     expect(publicProfile.education[0]).toMatchObject({ degree: 'BS Computer Science', end: 'Expected 2027' });
   });
 
