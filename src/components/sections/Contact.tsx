@@ -72,7 +72,7 @@ export function Contact() {
         {status === 'sent' && 'Message sent successfully.'}
         {status === 'error' && 'Message could not be sent. Email Ayan directly instead.'}
       </div>
-      <div className="grid gap-16 lg:grid-cols-[0.85fr_1.15fr]">
+      <div className="grid grid-cols-1 gap-16 lg:grid-cols-[0.85fr_1.15fr]">
         <div>
           <SectionHeading
             index="08"
@@ -189,7 +189,7 @@ export function Contact() {
                     className="hidden"
                   />
 
-                  <div className="grid gap-7 sm:grid-cols-2">
+                  <div className="grid grid-cols-1 gap-7 sm:grid-cols-2">
                     <Field label="Your name" name="name" placeholder="Alex Carter" required />
                     <Field
                       label="Email"

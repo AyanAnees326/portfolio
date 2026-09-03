@@ -84,7 +84,7 @@ export default function Garage() {
           </div>
         </Reveal>
 
-        <RevealGroup className="mt-10 grid gap-x-12 gap-y-10 sm:grid-cols-2" stagger={0.08}>
+        <RevealGroup className="mt-10 grid grid-cols-1 gap-x-12 gap-y-10 sm:grid-cols-2" stagger={0.08}>
           {personal.interests.map((i, n) => (
             <RevealItem key={i.title}>
               <div>

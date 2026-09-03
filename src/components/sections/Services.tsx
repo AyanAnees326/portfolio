@@ -78,7 +78,7 @@ export function Services() {
                       transition={{ duration: 0.45, ease: [0.16, 1, 0.3, 1] }}
                       className="overflow-hidden"
                     >
-                      <div className="grid gap-8 pb-9 md:grid-cols-[1fr_1fr] md:pl-14">
+                      <div className="grid grid-cols-1 gap-8 pb-9 md:grid-cols-[1fr_1fr] md:pl-14">
                         <div>
                           <p className="max-w-md text-[17px] leading-relaxed text-ink-2">
                             {s.promise}

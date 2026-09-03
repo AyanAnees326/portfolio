@@ -141,7 +141,7 @@ export function Lab() {
         </div>
       </Reveal>
 
-      <motion.div layout className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <motion.div layout className="mt-8 grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
         <AnimatePresence mode="popLayout">
           {visible.map((demo, i) => (
             <motion.div

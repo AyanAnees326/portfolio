@@ -86,7 +86,7 @@ export function Skills() {
         </div>
       </Reveal>
 
-      <div className="mt-12 grid gap-x-12 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-12 grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-2 lg:grid-cols-3">
         {skillGroups.map((group, gi) => (
           <Reveal key={group.id} delay={gi * 0.06}>
             <div>

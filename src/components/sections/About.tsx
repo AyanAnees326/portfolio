@@ -46,7 +46,7 @@ export function About() {
           }
         />
 
-        <div className="relative mt-14 grid gap-14 lg:grid-cols-[1.15fr_0.85fr]">
+        <div className="relative mt-14 grid grid-cols-1 gap-14 lg:grid-cols-[1.15fr_0.85fr]">
           <div className="space-y-6">
             {about.intro.map((p, i) => (
               <Reveal key={i} delay={i * 0.08}>
@@ -90,7 +90,7 @@ export function About() {
         </div>
 
         <Reveal>
-          <div className="mt-16 grid border-y border-rule md:grid-cols-2">
+          <div className="mt-16 grid grid-cols-1 border-y border-rule md:grid-cols-2">
             <div className="py-6 md:pr-10">
               <p className="eyebrow">Experience</p>
               <div className="mt-4 flex items-baseline justify-between gap-4">
@@ -125,7 +125,7 @@ export function About() {
             </p>
           </Reveal>
 
-          <RevealGroup className="mt-12 grid gap-x-12 gap-y-12 md:grid-cols-3" stagger={0.1}>
+          <RevealGroup className="mt-12 grid grid-cols-1 gap-x-12 gap-y-12 md:grid-cols-3" stagger={0.1}>
             {about.parallels.map((p, i) => (
               <RevealItem key={p.title}>
                 <div className="flex h-full flex-col border-t border-rule pt-5">

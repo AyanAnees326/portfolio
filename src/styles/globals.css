@@ -273,6 +273,18 @@
     transform: scaleX(1);
   }
 
+  /* Editorial text links sit around 25px tall, well under a thumb. Grow the
+     hit area with a transparent overlay rather than padding, because padding
+     would drag the ::after underline away from the text. Coarse pointers
+     only, so the mouse target stays exactly where it looks. */
+  @media (pointer: coarse) {
+    .link-rule::before {
+      content: '';
+      position: absolute;
+      inset: -11px 0;
+    }
+  }
+
   /* Paper grain. Kept from the previous build, it is the one texture
      that survives the pivot, because paper is exactly what we want. */
   .grain {
@@ -354,5 +366,17 @@
   ::view-transition-old(*),
   ::view-transition-new(*) {
     animation: none !important;
+  }
+}
+
+/* iOS Safari zooms the whole page when a focused field is under 16px, and the
+   zoom does not undo itself. Unlayered on purpose: the fields carry Tailwind
+   text-[15px] utilities, and a rule inside @layer base would lose to them no
+   matter how specific it is. */
+@media (max-width: 640px) {
+  input,
+  textarea,
+  select {
+    font-size: 16px;
   }
 }
