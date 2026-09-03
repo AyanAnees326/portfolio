@@ -12,7 +12,7 @@ interface Task {
 const INITIAL: Task[] = [
   { id: 1, label: 'Design system tokens', tag: 'design', tone: 'text-accent bg-accent/15' },
   { id: 2, label: 'Auth + session flow', tag: 'backend', tone: 'text-accent bg-accent/15' },
-  { id: 3, label: 'Checkout integration', tag: 'payments', tone: 'text-emerald-300 bg-emerald-500/15' },
+  { id: 3, label: 'Checkout integration', tag: 'payments', tone: 'text-ink-2 bg-accent/15' },
   { id: 4, label: 'Mobile nav polish', tag: 'frontend', tone: 'text-accent bg-accent/15' },
 ];
 
@@ -86,7 +86,7 @@ export default function KanbanBoard() {
                   exit={{ opacity: 0 }}
                   className="flex items-center gap-2 px-2.5 py-1"
                 >
-                  <Check className="h-3 w-3 shrink-0 text-emerald-400" />
+                  <Check className="h-3 w-3 shrink-0 text-accent" />
                   <span className="truncate text-xs text-ink-3 line-through">{task.label}</span>
                 </motion.div>
               ))}

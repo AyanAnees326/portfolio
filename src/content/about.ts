@@ -6,7 +6,7 @@
 export const about = {
   intro: [
     'I started building because something was broken and nobody was coming to fix it. That impulse has not changed — it just moved from a workbench to a keyboard.',
-    'Right now I am interning on a production agentic system, building the dashboard that lets a team supervise AI agents doing real operational work. Before that, everything I know came from building things until they worked.',
+    'At NICL, I am interning on an internal AI operations platform: document processing, resilient workflows, operator views, and analytics designed to keep people in control.',
     'I take on freelance work in parallel: websites, mobile apps, and AI agents for people who need something built properly and quickly.',
   ],
 
@@ -29,13 +29,26 @@ export const about = {
     },
   ],
 
-  /** Stats strip. TODO: swap in your real numbers. */
   stats: [
-    { value: 2, suffix: '', label: 'systems shipped' },
-    { value: 20, suffix: '+', label: 'technologies used' },
-    { value: 1, suffix: '', label: 'industry internship' },
-    { value: 3, suffix: '', label: 'projects in the garage' },
+    { value: 12, suffix: '', label: 'live interface demos' },
+    { value: 1, suffix: '', label: 'AI internship' },
+    { value: 2027, suffix: '', label: 'expected graduation' },
+    { value: 1992, suffix: '', label: 'Suzuki Bandit 250' },
   ],
+
+  experience: {
+    organization: 'NICL',
+    role: 'AI Intern',
+    period: 'June 2026–Present',
+    description:
+      'Contributing to an internal AI operations and document-processing platform built around human-supervised workflows.',
+  },
+
+  education: {
+    institution: 'LUMS',
+    degree: 'BS Computer Science',
+    period: 'Expected 2027',
+  },
 
   currentlyLearning: ['MCP servers', 'Docker & deployment', 'React Native', 'System design'],
 

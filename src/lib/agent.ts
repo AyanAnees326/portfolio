@@ -17,9 +17,8 @@ export interface AgentResult {
 export const MAX_TURNS = 12;
 
 /**
- * Client half of the agent. Retrieval happens here — the corpus is already in
- * the bundle, so shipping the relevant chunks to the function costs one fewer
- * round trip and keeps the serverless side stateless.
+ * The server performs authoritative retrieval. Local retrieval is retained
+ * only so the scripted fallback can remain useful when the API is unavailable.
  */
 export async function askAgent(
   question: string,
@@ -27,8 +26,6 @@ export async function askAgent(
 ): Promise<AgentResult> {
   const chunks = retrieve(question, 5);
   const sources = chunks.map((c) => c.source);
-  const context = chunks.map((c) => `[${c.source}] ${c.text}`).join('\n\n');
-
   try {
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 20_000);
@@ -38,9 +35,6 @@ export async function askAgent(
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
         question,
-        context,
-        // Only the last few turns — the corpus does the heavy lifting, and a
-        // long history is pure token cost on a pay-per-token endpoint.
         history: history.slice(-6),
       }),
       signal: controller.signal,
@@ -49,13 +43,13 @@ export async function askAgent(
 
     if (!res.ok) throw new Error(`chat endpoint ${res.status}`);
 
-    const data = (await res.json()) as { reply?: string; provider?: string };
+    const data = (await res.json()) as { reply?: string; provider?: string; sources?: string[] };
     if (!data.reply) throw new Error('empty reply');
 
     return {
       reply: data.reply,
       provider: data.provider === 'openrouter' ? 'openrouter' : 'databricks',
-      sources,
+      sources: Array.isArray(data.sources) ? data.sources.slice(0, 5) : [],
     };
   } catch {
     // Tier 3. Covers no /api route at all (plain `vite preview`, static host),

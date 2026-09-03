@@ -1,8 +1,9 @@
-import { site } from '@/content/site';
-import { services } from '@/content/services';
-import { skillGroups, LEVEL_META } from '@/content/skills';
-import { projects } from '@/content/projects';
-import { about } from '@/content/about';
+import { site } from '../content/site';
+import { services } from '../content/services';
+import { skillGroups, LEVEL_META } from '../content/skills';
+import { projects } from '../content/projects';
+import { about } from '../content/about';
+import { publicProfile } from '../content/publicProfile';
 
 export interface Chunk {
   id: string;
@@ -24,6 +25,22 @@ export function buildCorpus(): Chunk[] {
     source: 'profile',
     text: `${site.name} is a ${site.role}. ${site.tagline} Location: ${site.location}. Availability: ${site.availability.label}, ${site.availability.detail}. Contact email: ${site.links.email}. Typical response time: ${site.responseTime}.`,
   });
+
+  for (const experience of publicProfile.experience) {
+    chunks.push({
+      id: `experience-${experience.organization.toLowerCase()}`,
+      source: 'experience',
+      text: `${experience.role} at ${experience.organization}, ${experience.start}–${experience.end}, ${experience.location}. ${experience.summary} Approved public facts: ${experience.approvedFacts.join('; ')}.`,
+    });
+  }
+
+  for (const education of publicProfile.education) {
+    chunks.push({
+      id: `education-${education.institution.toLowerCase().replace(/\W+/g, '-')}`,
+      source: 'education',
+      text: `${education.degree} at ${education.institution}, ${education.end}.`,
+    });
+  }
 
   for (const s of services) {
     chunks.push({

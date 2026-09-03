@@ -1,6 +1,6 @@
 import { Link, useParams } from 'react-router-dom';
 import { motion, useScroll, useSpring } from 'framer-motion';
-import { ArrowLeft, ArrowRight, Lock } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ExternalLink, Lock } from 'lucide-react';
 import { getProject, shippedProjects } from '@/content/projects';
 import { Chip } from '@/components/ui/Chip';
 import { Reveal, LetterSwap } from '@/components/motion';
@@ -91,6 +91,14 @@ export default function CaseStudy() {
           </Reveal>
         )}
 
+        {project.cover && (
+          <Reveal delay={0.22}>
+            <figure className="mt-12">
+              <img src={project.cover} alt={project.alt ?? ''} className="w-full border border-rule" />
+            </figure>
+          </Reveal>
+        )}
+
         <Reveal delay={0.24}>
           <p className="mt-16 font-display text-[clamp(1.4rem,3vw,2rem)] leading-[1.35] text-ink">
             {project.study.context}
@@ -126,6 +134,22 @@ export default function CaseStudy() {
           ))}
         </div>
 
+        {project.gallery && project.gallery.length > 0 && (
+          <Reveal>
+            <section className="mt-16 border-t border-rule pt-6">
+              <p className="eyebrow">Evidence</p>
+              <div className="mt-6 space-y-10">
+                {project.gallery.map((item) => (
+                  <figure key={item.src}>
+                    <img src={item.src} alt={item.alt} loading="lazy" className="w-full border border-rule" />
+                    <figcaption className="mt-3 text-[13px] leading-relaxed text-ink-3">{item.caption}</figcaption>
+                  </figure>
+                ))}
+              </div>
+            </section>
+          </Reveal>
+        )}
+
         <Reveal>
           <div className="mt-16 border-t border-rule pt-6">
             <p className="eyebrow">Built with</p>
@@ -134,6 +158,15 @@ export default function CaseStudy() {
                 <Chip key={s}>{s}</Chip>
               ))}
             </div>
+            {project.links && project.links.length > 0 && (
+              <div className="mt-6 flex flex-wrap gap-5">
+                {project.links.map((link) => (
+                  <a key={link.href} href={link.href} target="_blank" rel="noreferrer" className="link-rule inline-flex items-center gap-2 text-sm text-accent">
+                    {link.label}<ExternalLink className="h-3.5 w-3.5" />
+                  </a>
+                ))}
+              </div>
+            )}
           </div>
         </Reveal>
 

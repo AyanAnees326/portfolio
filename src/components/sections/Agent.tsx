@@ -98,6 +98,9 @@ export function Agent() {
 
           <div
             ref={scrollRef}
+            aria-live="polite"
+            aria-busy={busy}
+            aria-label="Portfolio assistant conversation"
             className="scrollbar-none h-96 space-y-5 overflow-y-auto bg-paper px-6 py-6"
           >
             {entries.map((e, i) => (
@@ -177,6 +180,7 @@ export function Agent() {
             className="flex items-center gap-3 border-t border-rule px-4 py-3"
           >
             <input
+              aria-label="Question for the portfolio assistant"
               value={input}
               onChange={(e) => setInput(e.target.value)}
               disabled={busy || capped}

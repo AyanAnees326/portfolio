@@ -1,0 +1,46 @@
+{
+  "name": "Ayan Anees",
+  "initials": "AA",
+  "role": "Full-stack & AI Agent Developer",
+  "tagline": "I build web apps, mobile apps, and AI systems that do real work.",
+  "location": "Lahore, Pakistan",
+  "remote": "Remote worldwide",
+  "canonicalUrl": "https://portfoliotemp-phi.vercel.app",
+  "contacts": {
+    "email": "ayananees326@gmail.com",
+    "phone": "+92 323 4061107",
+    "github": "https://github.com/AyanAnees326",
+    "whatsapp": "https://wa.me/923234061107",
+    "resume": "/Ayan-Anees-Resume.pdf"
+  },
+  "education": [
+    {
+      "institution": "Lahore University of Management Sciences (LUMS)",
+      "degree": "BS Computer Science",
+      "end": "Expected 2027"
+    }
+  ],
+  "experience": [
+    {
+      "organization": "NICL",
+      "role": "AI Intern",
+      "start": "June 2026",
+      "end": "Present",
+      "location": "Lahore, Pakistan",
+      "summary": "Building an internal AI operations and document-processing platform with human-supervised workflows.",
+      "approvedFacts": [
+        "Python and FastAPI services with a React operator interface and SQLite persistence",
+        "Azure Document Intelligence processing with resilient batch, retry, and failure-visible workflows",
+        "SAP and Excel consumption processing",
+        "Databricks-backed assistance with deterministic local analytics and native SVG charts",
+        "Role-based operator views designed for human supervision"
+      ]
+    }
+  ],
+  "verifiedFacts": [
+    "12 live interface demos",
+    "One AI internship",
+    "BS Computer Science expected 2027",
+    "Rebuilding the engine head of a 1992 Suzuki Bandit 250"
+  ]
+}

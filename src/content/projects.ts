@@ -20,6 +20,9 @@ export interface Project {
   /** Big stat shown on the card, e.g. { value: '6', label: 'internal tools replaced' } */
   metrics?: { value: string; label: string }[];
   links?: { label: string; href: string }[];
+  cover?: string;
+  alt?: string;
+  gallery?: { src: string; alt: string; caption: string }[];
   /** Long-form case study. Empty for planned work. */
   study?: {
     context: string;
@@ -35,58 +38,76 @@ export const projects: Project[] = [
     slug: 'agent-platform',
     title: 'Agentic Operations Platform',
     summary:
-      'A multi-agent system with an operator dashboard, built during an industry internship. Agents handle recurring operational work; humans supervise, correct and approve.',
+      'An internal AI operations and document-processing platform built at NICL, with resilient workflows and role-based views that keep operators in control.',
     status: 'shipped',
     year: '2026',
     tags: ['AI Agents', 'Full-stack', 'Dashboard'],
-    stack: ['Python', 'LLM APIs', 'React', 'TypeScript', 'Tailwind', 'REST'],
+    stack: ['Python', 'FastAPI', 'React', 'SQLite', 'Azure Document Intelligence', 'Databricks'],
     metrics: [
-      { value: 'Multi', label: 'agent orchestration' },
-      { value: 'Live', label: 'operator dashboard' },
-      { value: '24/7', label: 'unattended runs' },
+      { value: 'Azure', label: 'document processing' },
+      { value: 'RBAC', label: 'operator views' },
+      { value: 'Human', label: 'supervised workflows' },
     ],
-    nda: 'Built under a confidentiality agreement. The client, the industry specifics, and the agents’ internal logic and prompts are deliberately omitted. What follows is the system architecture and dashboard design only — the parts I can show.',
+    cover: '/evidence/agent-platform-cover.svg',
+    alt: 'Abstract workflow diagram showing documents moving through processing, review, and analytics stages',
+    gallery: [
+      {
+        src: '/evidence/agent-processing.svg',
+        alt: 'Synthetic processing view with queued, processing, review, and completed document states',
+        caption: 'Synthetic workflow reconstruction based on the shipped processing flow; no operational data is shown.',
+      },
+      {
+        src: '/evidence/agent-supervision.svg',
+        alt: 'Synthetic role-based operator view showing review and retry controls',
+        caption: 'Synthetic operator view illustrating human supervision, retry visibility, and bounded actions.',
+      },
+      {
+        src: '/evidence/agent-analytics.svg',
+        alt: 'Synthetic analytics view with local summary cards and an SVG line chart',
+        caption: 'Synthetic analytics view reflecting deterministic local calculations and native SVG chart output.',
+      },
+    ],
+    nda: 'Built at NICL. The internal product name, operational data, documents, identifiers, endpoints, prompts, and business details are withheld. Published visuals use synthetic data and describe only verified workflow and technology evidence.',
     study: {
       context:
-        'An operations team was doing high-volume repetitive work by hand across several disconnected systems. The task was not "add a chatbot" — it was to build agents that could carry out that work end to end, plus a control surface that let the team trust and supervise them.',
+        'The work focused on an internal platform that turns documents and operational inputs into visible, recoverable workflows. The objective was not autonomous operation at any cost; it was dependable processing with clear operator control.',
       blocks: [
         {
           heading: 'The problem',
           body:
             'Manual, repeatable work spread across multiple tools, with no single view of what was happening. Any automation had to be auditable: the team needed to see what the system decided and why, and be able to step in before anything committed.',
           points: [
-            'Work was repetitive but not trivial — it needed judgement, so simple scripting failed',
-            'Errors were expensive and hard to trace after the fact',
-            'No shared visibility into status, throughput or failures',
+            'Documents required structured extraction before downstream use',
+            'Batch failures needed to be visible, retryable, and isolated',
+            'Different operator roles needed appropriately bounded views',
           ],
         },
         {
-          heading: 'How the system is structured',
+          heading: 'Processing architecture',
           body:
-            'A coordinator receives a task, decomposes it, and dispatches to specialised workers. Each worker has a narrow, well-defined tool surface rather than open access, so its blast radius is bounded and its behaviour is testable. Every step — input, tool call, output, decision — is written to a run log before the next step begins.',
+            'Python and FastAPI services coordinate processing behind a React interface, with SQLite providing local persistence. Azure Document Intelligence handles document extraction; batch state and retries make failures recoverable instead of silent.',
           points: [
-            'Coordinator → specialised workers → bounded tool surface per worker',
-            'Every run fully logged and replayable for debugging',
-            'Human-in-the-loop approval gate before any consequential action',
-            'Retries with backoff; failures surface to the dashboard instead of dying silently',
+            'Azure Document Intelligence extraction with explicit processing states',
+            'Concurrent batch work with retry and per-file failure visibility',
+            'SAP and Excel consumption processing through guarded workflows',
+            'SQLite-backed state exposed through typed API routes',
           ],
         },
         {
-          heading: 'The operator dashboard',
+          heading: 'Operator and assistance layers',
           body:
-            'The interface I own. It turns an opaque agent system into something a non-engineer can actually supervise — which is the difference between a demo and a tool people use.',
+            'The React interface presents role-based workspaces rather than one unrestricted control panel. Databricks-backed assistance sits alongside deterministic local analytics so the product can answer broader questions without giving up predictable totals and chart data.',
           points: [
-            'Live run feed: what is executing right now, and at which step',
-            'Per-run timeline showing each decision and tool call in sequence',
-            'Approval queue for actions waiting on a human',
-            'Failure view that groups errors by cause rather than listing them raw',
-            'Throughput and success-rate metrics over time',
+            'Role-based navigation and operator views',
+            'Human-visible review and retry controls',
+            'Databricks-backed conversational assistance',
+            'Deterministic local analytics rendered as native SVG charts',
           ],
         },
         {
           heading: 'What I took from it',
           body:
-            'The model is the easy part. The hard parts are the boundaries around it: what a worker is allowed to touch, what happens when a tool call fails at 3am, and how you show a non-technical operator enough to trust the system without drowning them in logs. Most of the engineering effort went into observability and failure handling, not prompting.',
+            'The useful lesson was that AI capability is only one layer of a production system. Recovery, bounded permissions, deterministic calculations, clear state, and human supervision are what make the surrounding product dependable.',
         },
       ],
     },
@@ -102,9 +123,22 @@ export const projects: Project[] = [
     tags: ['Frontend', 'Design System', 'UI/UX'],
     stack: ['React', 'TypeScript', 'Tailwind', 'Framer Motion', 'Vite'],
     metrics: [
-      { value: '20+', label: 'components' },
-      { value: '100%', label: 'responsive' },
-      { value: 'AA', label: 'contrast target' },
+      { value: '12', label: 'live demos' },
+      { value: '2', label: 'visual themes' },
+      { value: '1', label: 'shared token system' },
+    ],
+    cover: '/evidence/ui-system-lab.png',
+    alt: 'Live portfolio component Lab showing editorial typography, filters, and interactive demo cards',
+    gallery: [
+      {
+        src: '/evidence/ui-system-lab.png',
+        alt: 'Screenshot of the live component Lab in this portfolio',
+        caption: 'Captured from the live implementation: responsive layouts, shared tokens, motion primitives, and 12 interactive demos.',
+      },
+    ],
+    links: [
+      { label: 'Live site', href: 'https://portfoliotemp-phi.vercel.app' },
+      { label: 'Source code', href: 'https://github.com/AyanAnees326/portfolio' },
     ],
     study: {
       context:

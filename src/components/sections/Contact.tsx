@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Check, Github, Linkedin, Mail, MessageCircle, Send } from 'lucide-react';
+import { Check, Github, Mail, MessageCircle, Send } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Reveal, LetterSwap } from '@/components/motion';
@@ -20,19 +20,24 @@ export function Contact() {
 
     // Web3Forms needs an access key; without one, fail loudly rather than
     // silently swallowing a real enquiry.
-    if (!site.web3formsKey) {
+    const accessKey = import.meta.env.VITE_WEB3FORMS_KEY;
+    if (!accessKey) {
       setStatus('error');
       return;
     }
-    data.append('access_key', site.web3formsKey);
+    data.append('access_key', accessKey);
     data.append('subject', `New enquiry — ${type}`);
 
     setStatus('sending');
     try {
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 12_000);
       const res = await fetch('https://api.web3forms.com/submit', {
         method: 'POST',
         body: data,
+        signal: controller.signal,
       });
+      window.clearTimeout(timeout);
       const json = await res.json();
       if (json.success) {
         setStatus('sent');
@@ -48,7 +53,6 @@ export function Contact() {
   const socials = [
     { icon: Mail, label: 'Email', value: site.links.email, href: `mailto:${site.links.email}` },
     { icon: Github, label: 'GitHub', value: 'View my code', href: site.links.github },
-    { icon: Linkedin, label: 'LinkedIn', value: 'Connect', href: site.links.linkedin },
     ...(site.links.whatsapp
       ? [
           {
@@ -63,6 +67,11 @@ export function Contact() {
 
   return (
     <Section id="contact">
+      <div className="sr-only" role="status" aria-live="polite">
+        {status === 'sending' && 'Sending your message.'}
+        {status === 'sent' && 'Message sent successfully.'}
+        {status === 'error' && 'Message could not be sent. Email Ayan directly instead.'}
+      </div>
       <div className="grid gap-16 lg:grid-cols-[0.85fr_1.15fr]">
         <div>
           <SectionHeading
@@ -234,9 +243,9 @@ export function Contact() {
 
                   {status === 'error' && (
                     <p className="border-l-2 border-redline pl-4 text-[13px] text-ink-2">
-                      {site.web3formsKey
+                      {import.meta.env.VITE_WEB3FORMS_KEY
                         ? `That didn't send. Please email ${site.links.email} instead.`
-                        : `The form is not connected yet — add a Web3Forms key in src/content/site.ts. Email ${site.links.email} in the meantime.`}
+                        : `The form is not connected yet. Email ${site.links.email} in the meantime.`}
                     </p>
                   )}
 
@@ -287,6 +296,7 @@ function Field({
         name={name}
         type={type}
         required={required}
+        maxLength={name === 'name' ? 100 : 254}
         placeholder={placeholder}
         className="mt-3 w-full border-b border-rule bg-transparent pb-2 text-[15px] outline-none transition-colors placeholder:text-ink-3 focus:border-accent"
       />

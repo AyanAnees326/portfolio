@@ -222,6 +222,7 @@ export function Process() {
         data-cursor-minimal="grab"
         role="group"
         aria-label="Process steps — scroll horizontally"
+        tabIndex={0}
         className={[
           'scrollbar-none mt-10 flex cursor-grab gap-8 overflow-x-auto px-6 pb-4 sm:gap-12',
           'active:cursor-grabbing',
@@ -240,7 +241,7 @@ export function Process() {
             key={s.n}
             className="flex w-[min(26rem,78vw)] shrink-0 flex-col border-l border-rule pl-6 select-none sm:pl-8"
           >
-            <span className="font-display text-[clamp(3.5rem,8vw,7rem)] leading-none text-accent opacity-25">
+            <span aria-hidden="true" className="font-display text-[clamp(3.5rem,8vw,7rem)] leading-none text-accent">
               {s.n}
             </span>
 

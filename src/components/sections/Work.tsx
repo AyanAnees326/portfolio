@@ -31,7 +31,7 @@ export function Work() {
             What I have <span className="text-accent italic">shipped</span>
           </>
         }
-        description="Two systems in production, three more in the garage. Shipped work is separated from planned work on purpose — you should always be able to tell which is which."
+        description="Two documented builds, with three future projects still in the garage. Shipped work is separated from planned work on purpose — you should always be able to tell which is which."
       />
 
       <HoverPreview item={hovered} />
@@ -50,7 +50,7 @@ export function Work() {
               to={`/work/${p.slug}`}
               data-cursor="VIEW"
               onMouseEnter={() => {
-                setHovered({ id: p.id, title: p.title, caption: p.tags.join(' · ') });
+                setHovered({ id: p.id, title: p.title, caption: p.tags.join(' · '), image: p.cover });
                 setHoveredId(p.id);
               }}
               className={cn(

@@ -58,6 +58,9 @@ export function Preloader() {
     <AnimatePresence>
       {!done && (
         <motion.div
+          role="status"
+          aria-live="polite"
+          aria-label={`Loading ${site.name}'s portfolio: ${pct} percent`}
           className="fixed inset-0 z-[200] flex flex-col justify-between bg-paper px-8 py-10"
           exit={{ y: '-100%' }}
           transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1] }}
@@ -68,14 +71,15 @@ export function Preloader() {
           </div>
 
           <div className="overflow-hidden">
-            <motion.h1
+            <motion.p
+              aria-hidden="true"
               initial={{ y: '110%' }}
               animate={{ y: 0 }}
               transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
               className="text-[clamp(2.5rem,9vw,7rem)]"
             >
               {site.name}
-            </motion.h1>
+            </motion.p>
           </div>
 
           <div className="flex items-end justify-between gap-6">

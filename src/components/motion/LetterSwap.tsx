@@ -26,17 +26,17 @@ export function LetterSwap({
 
   const letters = text.split('');
 
-  const row = (hidden: boolean) => (
+  const row = (incoming: boolean) => (
     <span
-      aria-hidden={hidden}
-      className={cn('flex', hidden && 'absolute inset-0')}
+      aria-hidden="true"
+      className={cn('flex', incoming && 'absolute inset-0')}
     >
       {letters.map((ch, i) => (
         <span
           key={`${ch}-${i}`}
           className={cn(
             'inline-block transition-transform duration-[420ms] ease-[cubic-bezier(0.16,1,0.3,1)]',
-            hidden
+            incoming
               ? 'translate-y-full group-hover:translate-y-0'
               : 'group-hover:-translate-y-full',
           )}
@@ -50,6 +50,7 @@ export function LetterSwap({
 
   return (
     <span className={cn('group relative inline-flex overflow-hidden', className)}>
+      <span className="sr-only">{text}</span>
       {row(false)}
       {row(true)}
     </span>

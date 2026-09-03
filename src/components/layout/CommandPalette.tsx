@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
-import {
-  Search, Mail, Github, Linkedin, FileText, CornerDownLeft, ArrowUp, ArrowDown,
-} from 'lucide-react';
+import { Search, Mail, Github, FileText, CornerDownLeft, ArrowUp, ArrowDown, MessageCircle } from 'lucide-react';
 import { NAV_SECTIONS, site } from '@/content/site';
 import { shippedProjects } from '@/content/projects';
 import { scrollToId } from './SmoothScroll';
 import { cn } from '@/lib/cn';
+import { useDialogA11y } from '@/hooks/useDialogA11y';
 
 interface Command {
   id: string;
@@ -34,6 +33,7 @@ export function CommandPalette({
   const [index, setIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement>(null);
   const listRef = useRef<HTMLDivElement>(null);
+  const dialogRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
 
   const commands = useMemo<Command[]>(() => {
@@ -97,21 +97,14 @@ export function CommandPalette({
           window.open(site.links.github, '_blank', 'noopener,noreferrer');
         },
       },
-      {
-        id: 'linkedin',
-        label: 'Open LinkedIn',
-        hint: 'External link',
-        group: 'Contact',
-        icon: Linkedin,
-        run: () => {
-          onClose();
-          window.open(site.links.linkedin, '_blank', 'noopener,noreferrer');
-        },
-      },
+      ...(site.links.whatsapp ? [{ id: 'whatsapp', label: 'Open WhatsApp', hint: 'External link', group: 'Contact', icon: MessageCircle, run: () => { onClose(); window.open(site.links.whatsapp, '_blank', 'noopener,noreferrer'); } }] : []),
+      ...(site.links.resume ? [{ id: 'resume', label: 'Download résumé', hint: 'PDF', group: 'Contact', icon: FileText, run: () => { onClose(); window.open(site.links.resume, '_blank', 'noopener,noreferrer'); } }] : []),
     ];
 
     return [...nav, ...work, ...actions];
   }, [navigate, onClose]);
+
+  useDialogA11y(open, onClose, dialogRef, inputRef);
 
   const filtered = useMemo(() => {
     const q = query.trim().toLowerCase();
@@ -139,10 +132,7 @@ export function CommandPalette({
   useEffect(() => {
     if (!open) return;
     function onKey(e: KeyboardEvent) {
-      if (e.key === 'Escape') {
-        e.preventDefault();
-        onClose();
-      } else if (e.key === 'ArrowDown') {
+      if (e.key === 'ArrowDown') {
         e.preventDefault();
         setIndex((i) => (i + 1) % Math.max(filtered.length, 1));
       } else if (e.key === 'ArrowUp') {
@@ -179,6 +169,7 @@ export function CommandPalette({
           />
 
           <motion.div
+            ref={dialogRef}
             role="dialog"
             aria-modal="true"
             aria-label="Command palette"

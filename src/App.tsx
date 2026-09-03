@@ -11,6 +11,7 @@ import { CommandPalette } from '@/components/layout/CommandPalette';
 import { RevOverlay } from '@/components/layout/RevOverlay';
 import { Curtain } from '@/components/layout/Curtain';
 import { CatalogueIndex } from '@/components/layout/CatalogueIndex';
+import { Seo } from '@/components/layout/Seo';
 import { useRevEasterEgg } from '@/hooks/useRevEasterEgg';
 import { Wheel } from '@/components/ui/Wheel';
 import Home from '@/pages/Home';
@@ -71,33 +72,28 @@ export default function App() {
   return (
     <SmoothScroll>
       <Preloader />
-      <Background />
-      <Cursor />
-      <ScrollProgress />
-      <ScrollReset />
+      <Seo />
+      <div id="app-content">
+        <Background />
+        <Cursor />
+        <ScrollProgress />
+        <ScrollReset />
 
-      <a
-        href="#main"
-        className="sr-only rounded-full bg-ink px-4 py-2 text-sm text-paper focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[300]"
-      >
-        Skip to content
-      </a>
-
-      <Nav onOpenPalette={() => setPaletteOpen(true)} />
-      <CatalogueIndex />
-
-      <main id="main" className="relative z-10">
-        <Suspense fallback={<RouteFallback />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/work/:slug" element={<CaseStudy />} />
-            <Route path="/garage" element={<Garage />} />
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </Suspense>
-      </main>
-
-      <Footer />
+        <a href="#main" className="sr-only rounded-full bg-ink px-4 py-2 text-sm text-paper focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[300]">Skip to content</a>
+        <Nav onOpenPalette={() => setPaletteOpen(true)} />
+        <CatalogueIndex />
+        <main id="main" className="relative z-10">
+          <Suspense fallback={<RouteFallback />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/work/:slug" element={<CaseStudy />} />
+              <Route path="/garage" element={<Garage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </Suspense>
+        </main>
+        <Footer />
+      </div>
 
       <CommandPalette open={paletteOpen} onClose={() => setPaletteOpen(false)} />
       <RevOverlay active={rev} />

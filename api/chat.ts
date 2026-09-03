@@ -10,6 +10,8 @@
  * (the client renders scripted answers on 502, so the UI never breaks).
  */
 
+import { retrieve } from '../src/lib/rag';
+
 export const config = { runtime: 'edge' };
 
 const SYSTEM_PROMPT = `You are the portfolio assistant for a full-stack and AI-agent developer. You answer questions from potential clients and recruiters browsing the site.
@@ -24,6 +26,14 @@ Rules:
 
 const MAX_QUESTION_LEN = 500;
 const MAX_TOKENS = 400;
+const MAX_HISTORY_TURNS = 6;
+const MAX_HISTORY_CONTENT = 1_000;
+const CANONICAL_ORIGIN = 'https://portfoliotemp-phi.vercel.app';
+const RESPONSE_HEADERS = {
+  'Cache-Control': 'no-store',
+  'Content-Type': 'application/json; charset=utf-8',
+  'X-Content-Type-Options': 'nosniff',
+};
 
 // Best-effort per-IP limiting. Edge instances are ephemeral and not shared, so
 // this throttles the common case rather than providing a hard guarantee — the
@@ -48,9 +58,35 @@ interface ChatTurn {
 function buildMessages(question: string, context: string, history: ChatTurn[]) {
   return [
     { role: 'system', content: SYSTEM_PROMPT },
-    ...history.map((h) => ({ role: h.role, content: String(h.content).slice(0, 1000) })),
+    ...history.map((h) => ({ role: h.role, content: h.content })),
     { role: 'user', content: `CONTEXT:\n${context}\n\nQUESTION: ${question}` },
   ];
+}
+
+function json(data: unknown, status = 200) {
+  return new Response(JSON.stringify(data), { status, headers: RESPONSE_HEADERS });
+}
+
+function originAllowed(request: Request): boolean {
+  const origin = request.headers.get('origin');
+  if (!origin) return true;
+  const configured = (process.env.CHAT_ALLOWED_ORIGINS ?? '').split(',').map((value) => value.trim()).filter(Boolean);
+  const allowed = new Set([CANONICAL_ORIGIN, 'http://localhost:5173', 'http://127.0.0.1:5173', ...configured]);
+  return allowed.has(origin);
+}
+
+function parseHistory(value: unknown): ChatTurn[] | null {
+  if (value === undefined) return [];
+  if (!Array.isArray(value) || value.length > MAX_HISTORY_TURNS) return null;
+  const turns: ChatTurn[] = [];
+  for (const item of value) {
+    if (!item || typeof item !== 'object') return null;
+    const role = (item as { role?: unknown }).role;
+    const content = (item as { content?: unknown }).content;
+    if ((role !== 'user' && role !== 'assistant') || typeof content !== 'string' || !content.trim() || content.length > MAX_HISTORY_CONTENT) return null;
+    turns.push({ role, content: content.trim() });
+  }
+  return turns;
 }
 
 function extractReply(data: unknown): string | null {
@@ -59,12 +95,36 @@ function extractReply(data: unknown): string | null {
   return typeof content === 'string' && content.trim() ? content.trim() : null;
 }
 
-/** Tier 1 — Databricks Model Serving (OpenAI-compatible invocations route). */
+let databricksOAuth: { token: string; expiresAt: number } | null = null;
+
+async function databricksToken(host: string): Promise<string | null> {
+  if (databricksOAuth && databricksOAuth.expiresAt > Date.now() + 60_000) return databricksOAuth.token;
+  const clientId = process.env.DATABRICKS_CLIENT_ID;
+  const clientSecret = process.env.DATABRICKS_CLIENT_SECRET;
+  if (!clientId || !clientSecret) return null;
+  const response = await fetch(`${host}/oidc/v1/token`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${btoa(`${clientId}:${clientSecret}`)}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({ grant_type: 'client_credentials', scope: 'all-apis' }),
+    signal: AbortSignal.timeout(5_000),
+  });
+  if (!response.ok) throw new Error(`databricks oauth ${response.status}`);
+  const data = (await response.json()) as { access_token?: string; expires_in?: number };
+  if (!data.access_token) return null;
+  databricksOAuth = { token: data.access_token, expiresAt: Date.now() + (data.expires_in ?? 3600) * 1000 };
+  return data.access_token;
+}
+
+/** Tier 1 — least-privilege Databricks service-principal OAuth. */
 async function callDatabricks(messages: unknown[]): Promise<string | null> {
   const host = process.env.DATABRICKS_HOST?.replace(/\/+$/, '');
   const endpoint = process.env.DATABRICKS_ENDPOINT;
-  const token = process.env.DATABRICKS_TOKEN;
-  if (!host || !endpoint || !token) return null;
+  if (!host || !endpoint) return null;
+  const token = await databricksToken(host);
+  if (!token) return null;
 
   const res = await fetch(`${host}/serving-endpoints/${endpoint}/invocations`, {
     method: 'POST',
@@ -159,42 +219,47 @@ async function callOpenRouter(messages: unknown[]): Promise<string | null> {
 
 export default async function handler(request: Request): Promise<Response> {
   if (request.method !== 'POST') {
-    return Response.json({ error: 'method not allowed' }, { status: 405 });
+    return json({ error: 'method not allowed' }, 405);
   }
+
+  if (!originAllowed(request)) return json({ error: 'origin not allowed' }, 403);
+  if (!request.headers.get('content-type')?.toLowerCase().startsWith('application/json')) return json({ error: 'content-type must be application/json' }, 415);
 
   const ip =
     request.headers.get('x-forwarded-for')?.split(',')[0].trim() ?? 'unknown';
   if (rateLimited(ip)) {
-    return Response.json({ error: 'rate limited' }, { status: 429 });
+    return json({ error: 'rate limited' }, 429);
   }
 
-  let body: { question?: string; context?: string; history?: ChatTurn[] };
+  let body: { question?: unknown; history?: unknown };
   try {
     body = await request.json();
   } catch {
-    return Response.json({ error: 'invalid json' }, { status: 400 });
+    return json({ error: 'invalid json' }, 400);
   }
 
-  const question = String(body.question ?? '').slice(0, MAX_QUESTION_LEN).trim();
-  const context = String(body.context ?? '').slice(0, 8_000);
-  const history = Array.isArray(body.history) ? body.history.slice(-6) : [];
+  if (typeof body.question !== 'string' || body.question.length > MAX_QUESTION_LEN) return json({ error: 'invalid question' }, 400);
+  const question = body.question.trim();
+  const history = parseHistory(body.history);
 
-  if (!question) {
-    return Response.json({ error: 'question required' }, { status: 400 });
-  }
+  if (!question) return json({ error: 'question required' }, 400);
+  if (!history) return json({ error: 'invalid history' }, 400);
 
+  const chunks = retrieve(question, 5);
+  const sources = [...new Set(chunks.map((chunk) => chunk.source))];
+  const context = chunks.map((chunk) => `[${chunk.source}] ${chunk.text}`).join('\n\n').slice(0, 8_000);
   const messages = buildMessages(question, context, history);
 
   try {
     const reply = await callDatabricks(messages);
-    if (reply) return Response.json({ reply, provider: 'databricks' });
+    if (reply) return json({ reply, provider: 'databricks', sources });
   } catch {
     // Fall through to tier 2 — quota, expired token, cold endpoint, timeout.
   }
 
   const orReply = await callOpenRouter(messages);
-  if (orReply) return Response.json({ reply: orReply, provider: 'openrouter' });
+  if (orReply) return json({ reply: orReply, provider: 'openrouter', sources });
 
   // Tier 3 lives on the client so it works even when this route is absent.
-  return Response.json({ error: 'no provider available' }, { status: 502 });
+  return json({ error: 'no provider available' }, 502);
 }

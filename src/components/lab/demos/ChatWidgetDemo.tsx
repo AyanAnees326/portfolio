@@ -69,8 +69,8 @@ export default function ChatWidgetDemo() {
           <Bot className="h-3.5 w-3.5 text-accent" />
         </div>
         <span className="text-xs font-medium">Sales assistant</span>
-        <span className="ml-auto flex items-center gap-1 text-[9px] text-emerald-400">
-          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400" /> online
+        <span className="ml-auto flex items-center gap-1 text-[9px] text-accent">
+          <span className="h-1.5 w-1.5 rounded-full bg-accent" /> online
         </span>
       </div>
 

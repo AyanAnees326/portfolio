@@ -23,7 +23,7 @@ const RULES: { match: RegExp; answer: string }[] = [
   {
     match: /agent|ai|llm|automat|chatbot|rag|gpt|claude/i,
     answer:
-      'AI agent work is the main focus right now — currently interning on a production multi-agent system, building the operator dashboard that lets a team supervise agents doing real operational work. That covers agent architecture, tool calling, RAG over your own documents, and the guardrails and cost controls that keep it safe to run unattended.',
+      'AI systems are the main focus right now — currently interning at NICL on an internal operations and document-processing platform with role-based views and human supervision. The public case study covers Python/FastAPI services, Azure document processing, Databricks-backed assistance, local analytics, and resilient retry workflows without naming the private product or exposing operational data.',
   },
   {
     match: /mobile|app store|ios|android|react native|flutter/i,
@@ -42,7 +42,7 @@ const RULES: { match: RegExp; answer: string }[] = [
   {
     match: /project|built|portfolio|work|shipped|experience/i,
     answer:
-      'Two systems shipped: an agentic operations platform with a supervisor dashboard (built during an industry internship — client and internals are under NDA, but the architecture is written up on this site), and a React + Tailwind interface system that the component Lab here is built from. Three more are in progress.',
+      'Two builds are documented here: an internal AI operations platform developed during an internship at NICL, with sensitive product and operational details withheld, and the React + Tailwind interface system behind this portfolio and its 12 live demos. Three additional ideas are clearly labelled as planned work.',
   },
   {
     match: /contact|email|reach|talk|call|message/i,

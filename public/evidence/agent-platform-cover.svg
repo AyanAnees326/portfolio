@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="t d">
+  <title id="t">AI operations workflow</title><desc id="d">Documents flow through extraction and review into analytics.</desc>
+  <rect width="1200" height="800" fill="#14120f"/><rect x="70" y="70" width="1060" height="660" rx="12" fill="#1c1916" stroke="#514b43"/>
+  <text x="110" y="128" fill="#f2efe8" font-family="Arial" font-size="28">Internal AI operations platform</text><text x="110" y="160" fill="#8b8479" font-family="Arial" font-size="16">Synthetic workflow evidence · no operational data</text>
+  <g font-family="Arial" text-anchor="middle"><g fill="#25211c" stroke="#6fb6c4" stroke-width="2"><rect x="115" y="280" width="220" height="180" rx="8"/><rect x="490" y="280" width="220" height="180" rx="8"/><rect x="865" y="280" width="220" height="180" rx="8"/></g>
+  <g fill="#f2efe8" font-size="22"><text x="225" y="338">Documents</text><text x="600" y="338">Review</text><text x="975" y="338">Analytics</text></g><g fill="#8b8479" font-size="15"><text x="225" y="382">Azure extraction</text><text x="225" y="410">Batch state</text><text x="600" y="382">Role-based views</text><text x="600" y="410">Retry controls</text><text x="975" y="382">Local totals</text><text x="975" y="410">SVG charts</text></g></g>
+  <g stroke="#6fb6c4" stroke-width="4" fill="none"><path d="M335 370h140"/><path d="M710 370h140"/></g><g fill="#6fb6c4"><path d="M475 370l-16-10v20z"/><path d="M850 370l-16-10v20z"/></g>
+  <text x="110" y="660" fill="#6fb6c4" font-family="Arial" font-size="18">Python · FastAPI · React · SQLite · Azure Document Intelligence · Databricks</text>
+</svg>

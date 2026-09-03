@@ -4,15 +4,15 @@ const ROW_A = ['Northwind', 'Lumen', 'Vertex', 'Kestrel', 'Halcyon', 'Meridian']
 const ROW_B = ['Foundry', 'Atlas', 'Cobalt', 'Solstice', 'Quarry', 'Ridgeline'];
 
 /**
- * Client/logo wall. Placeholder wordmarks — swap for real client logos as you
- * get them. Two rows moving in opposite directions reads as motion without
+ * Explicit component demonstration using fictional wordmarks. Two rows moving
+ * in opposite directions reads as motion without
  * demanding the eye follow anything.
  */
 export default function LogoWall() {
   return (
     <div className="flex h-full flex-col justify-center gap-4 p-4">
       <p className="text-center text-[10px] tracking-[0.2em] text-ink-3 uppercase">
-        trusted by
+        fictional logo-wall component
       </p>
 
       <Marquee speed={28}>

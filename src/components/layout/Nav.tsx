@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
@@ -9,6 +10,7 @@ import { Wheel } from '@/components/ui/Wheel';
 import { ThemeToggle } from './ThemeToggle';
 import { scrollToId, scrollToTop } from './SmoothScroll';
 import { cn } from '@/lib/cn';
+import { useDialogA11y } from '@/hooks/useDialogA11y';
 
 const SECTION_IDS = NAV_SECTIONS.map((s) => s.id);
 
@@ -22,6 +24,7 @@ const SECTION_IDS = NAV_SECTIONS.map((s) => s.id);
 export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const onHome = pathname === '/';
@@ -34,12 +37,8 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  useEffect(() => {
-    document.body.style.overflow = open ? 'hidden' : '';
-    return () => {
-      document.body.style.overflow = '';
-    };
-  }, [open]);
+  const closeMenu = useCallback(() => setOpen(false), []);
+  useDialogA11y(open, closeMenu, menuRef);
 
   function go(id: string) {
     setOpen(false);
@@ -70,7 +69,7 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
               aria-label="Back to top"
             >
               <Wheel className="h-10 w-10 shrink-0 text-ink transition-transform duration-[900ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:rotate-180" />
-              <span className="font-display text-[26px] leading-none whitespace-nowrap">
+              <span className="hidden font-display text-[26px] leading-none whitespace-nowrap sm:inline">
                 {site.name}
               </span>
             </button>
@@ -104,6 +103,7 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
                   'relative py-1 text-[13px] tracking-wide transition-colors duration-300',
                   active === s.id && onHome ? 'text-accent' : 'text-ink-2 hover:text-ink',
                 )}
+                aria-current={active === s.id && onHome ? 'location' : undefined}
               >
                 <LetterSwap text={s.label} />
                 {active === s.id && onHome && (
@@ -138,7 +138,7 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
 
             <button
               onClick={() => setOpen((v) => !v)}
-              className="text-ink-2 lg:hidden"
+              className="relative z-10 flex h-10 w-10 items-center justify-center text-ink-2 lg:hidden"
               aria-label={open ? 'Close menu' : 'Open menu'}
               aria-expanded={open}
             >
@@ -148,14 +148,19 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
         </nav>
       </header>
 
-      <AnimatePresence>
+      {createPortal(<AnimatePresence>
         {open && (
           <motion.div
+            ref={menuRef}
+            role="dialog"
+            aria-modal="true"
+            aria-label="Site navigation"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-40 flex flex-col justify-center gap-1 bg-paper px-8 lg:hidden"
+            className="fixed inset-0 z-[70] flex flex-col justify-center gap-1 bg-paper px-8 lg:hidden"
           >
+            <button onClick={closeMenu} aria-label="Close menu" className="absolute top-5 right-6 text-ink-2"><X className="h-6 w-6" /></button>
             {NAV_SECTIONS.map((s, i) => (
               <motion.button
                 key={s.id}
@@ -180,7 +185,7 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
             </motion.button>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence>, document.body)}
     </>
   );
 }
