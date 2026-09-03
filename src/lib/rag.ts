@@ -23,7 +23,7 @@ export function buildCorpus(): Chunk[] {
   chunks.push({
     id: 'identity',
     source: 'profile',
-    text: `${site.name} is a ${site.role}. ${site.tagline} Location: ${site.location}. Availability: ${site.availability.label}, ${site.availability.detail}. Contact email: ${site.links.email}. Typical response time: ${site.responseTime}.`,
+    text: `${site.name} is a ${site.role}. ${site.tagline} Location: ${site.location}. Availability: ${site.availability.label}. Contact email: ${site.links.email}. Typical response time: ${site.responseTime}.`,
   });
 
   for (const experience of publicProfile.experience) {

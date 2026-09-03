@@ -10,7 +10,6 @@ export const site = {
   availability: {
     open: true,
     label: 'Open for freelance',
-    detail: 'Currently interning',
   },
 
   location: `${publicProfile.location} · ${publicProfile.remote}`,

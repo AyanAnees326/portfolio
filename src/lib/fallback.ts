@@ -33,7 +33,7 @@ const RULES: { match: RegExp; answer: string }[] = [
   },
   {
     match: /available|hire|freelance|work with|free|capacity|book/i,
-    answer: `${site.availability.label}. ${site.availability.detail}. Email ${site.links.email} and you'll normally get a reply ${site.responseTime}.`,
+    answer: `${site.availability.label}. Email ${site.links.email} and you'll normally get a reply ${site.responseTime}.`,
   },
   {
     match: /skill|tech|stack|language|framework|know|experience/i,

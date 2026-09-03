@@ -41,8 +41,6 @@ export function Hero() {
         >
           <span className="h-1.5 w-1.5 animate-[pulse-dot_2.4s_ease-in-out_infinite] rounded-full bg-accent" />
           <span className="eyebrow">{site.availability.label}</span>
-          <span className="eyebrow opacity-50">/</span>
-          <span className="eyebrow">{site.availability.detail}</span>
         </motion.div>
 
         <h1 className="text-[clamp(2.75rem,10vw,8.5rem)] leading-[0.92]">
