@@ -14,7 +14,7 @@ export default function NotFound() {
         Took a <span className="text-accent italic">wrong exit.</span>
       </h1>
       <p className="mt-6 max-w-md text-[17px] leading-relaxed text-ink-2">
-        This page doesn&apos;t exist — or it moved and nobody updated the signs.
+        This page doesn&apos;t exist, or it moved and nobody updated the signs.
         Either way, the road back is this way.
       </p>
 

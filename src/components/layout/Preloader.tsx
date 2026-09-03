@@ -7,7 +7,7 @@ import { site } from '@/content/site';
 const SEEN_KEY = 'portfolio:preloaded';
 
 /**
- * Title-page curtain. Shown once per tab session — a preloader you sit through
+ * Title-page curtain. Shown once per tab session, a preloader you sit through
  * on every navigation is an annoyance, not an experience.
  */
 export function Preloader() {

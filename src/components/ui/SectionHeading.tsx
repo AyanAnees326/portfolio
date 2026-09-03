@@ -16,7 +16,7 @@ interface SectionHeadingProps {
 /**
  * Editorial section header: a hairline rule, a catalogue number, then a large
  * serif title. The rule above the heading is the main structural device on the
- * page — it does the work the old glass panels were doing.
+ * page, it does the work the old glass panels were doing.
  */
 export function SectionHeading({
   index,

@@ -11,18 +11,18 @@ type MinimalMode = 'quiet' | 'grab' | null;
  *
  * A small ink dot tracks exactly; a lagging ring springs behind it. Over an
  * element carrying `data-cursor="VIEW"` (etc.) the ring inflates into an oxide
- * disc showing that word — the gallery-site device that tells you what an
+ * disc showing that word, the gallery-site device that tells you what an
  * element will do before you click it.
  *
  * Two elements ask for less than that:
- *   - `data-cursor-minimal` (masthead) — a bare dot, nothing else. The
+ *   - `data-cursor-minimal` (masthead), a bare dot, nothing else. The
  *     wordmark needs to stay fully readable, so even a small badge is too much.
- *   - `data-cursor-minimal="grab"` (the Process drag track) — a compact hand
+ *   - `data-cursor-minimal="grab"` (the Process drag track), a compact hand
  *     icon that closes into a fist while a drag is in progress. This region
  *     needs an affordance, just a quieter one than the full labelled disc.
  *
  * Read these off the DOM rather than through React state plumbing so any
- * element anywhere — including lazily-mounted Lab demos — can opt in with a
+ * element anywhere, including lazily-mounted Lab demos, can opt in with a
  * single attribute.
  */
 export function Cursor() {
@@ -94,7 +94,7 @@ export function Cursor() {
 
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 z-[100]">
-      {/* Precise dot — the whole cursor in the plain-minimal region, and a
+      {/* Precise dot, the whole cursor in the plain-minimal region, and a
           steady anchor point everywhere else while the ring lags behind. */}
       <motion.div
         className="absolute h-1.5 w-1.5 rounded-full bg-ink"

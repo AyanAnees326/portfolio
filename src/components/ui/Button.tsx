@@ -6,8 +6,8 @@ type Variant = 'primary' | 'outline' | 'quiet';
 type Size = 'sm' | 'md' | 'lg';
 
 /**
- * Editorial buttons: solid ink or a hairline outline. No gradients, no glow —
- * the old violet drop-shadow was the single most "startup" element on the page.
+ * Editorial buttons: solid ink or a hairline outline. No gradients, no glow.
+ * The old violet drop-shadow was the single most "startup" element on the page.
  */
 const VARIANTS: Record<Variant, string> = {
   primary: 'bg-ink text-paper hover:bg-accent hover:text-on-accent',

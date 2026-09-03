@@ -11,8 +11,8 @@ import { LAB_CATEGORIES, labDemos, type LabDemo } from '@/components/lab/registr
 import { snippets } from '@/components/lab/snippets';
 import { cn } from '@/lib/cn';
 
-// Prism is ~27KB gzipped and only needed once someone opens a code toggle —
-// keeping it out of the initial bundle is worth the one-frame Suspense.
+// Prism is ~27KB gzipped and only needed once someone opens a code toggle,
+// so keeping it out of the initial bundle is worth the one-frame Suspense.
 const CodeBlock = lazy(() =>
   import('@/components/lab/CodeBlock').then((m) => ({ default: m.CodeBlock })),
 );
@@ -27,8 +27,8 @@ function DemoFallback() {
 
 /**
  * A single specimen: live component on one side of the toggle, its source on
- * the other. The code view is styled as a printed code specimen — paper well,
- * quiet line numbers — rather than a terminal.
+ * the other. The code view is styled as a printed code specimen, paper well,
+ * quiet line numbers, rather than a terminal.
  */
 function DemoCard({ demo, n }: { demo: LabDemo; n: number }) {
   const [showCode, setShowCode] = useState(false);
@@ -120,7 +120,7 @@ export function Lab() {
             <span className="text-accent italic">live and clickable</span>
           </>
         }
-        description="Not screenshots — real working components. Click them, drag them, break them. Every one has a code toggle showing how it actually works, and every one is something I can build into your project."
+        description="Not screenshots, real working components. Click them, drag them, break them. Every one has a code toggle showing how it actually works, and every one is something I can build into your project."
       />
 
       <Reveal delay={0.16}>

@@ -26,7 +26,7 @@ export function Contact() {
       return;
     }
     data.append('access_key', accessKey);
-    data.append('subject', `New enquiry — ${type}`);
+    data.append('subject', `New enquiry: ${type}`);
 
     setStatus('sending');
     try {
@@ -82,7 +82,7 @@ export function Contact() {
                 Let&apos;s build <span className="text-accent italic">the thing</span>
               </>
             }
-            description="Tell me what you need — even roughly. You'll get a straight answer about whether I'm the right person, a fixed quote, and a date."
+            description="Tell me what you need, even roughly. You'll get a straight answer about whether I'm the right person, a fixed quote, and a date."
           />
 
           <Reveal delay={0.15}>
@@ -124,7 +124,7 @@ export function Contact() {
                   animate={{ opacity: 1, y: 0 }}
                   className="flex min-h-[460px] flex-col items-center justify-center border-t border-rule text-center"
                 >
-                  {/* Motorcycle easter egg — the chain pulls taut. */}
+                  {/* Motorcycle easter egg, the chain pulls taut. */}
                   <svg viewBox="0 0 160 24" className="w-44 text-accent">
                     <motion.g
                       initial={{ scaleX: 0.3, opacity: 0 }}
@@ -180,7 +180,7 @@ export function Contact() {
                   animate={{ opacity: 1 }}
                   className="space-y-7 border-t border-rule pt-8"
                 >
-                  {/* Honeypot — bots fill it, humans never see it. */}
+                  {/* Honeypot, bots fill it, humans never see it. */}
                   <input
                     type="checkbox"
                     name="botcheck"
@@ -242,7 +242,7 @@ export function Contact() {
                   </div>
 
                   {status === 'error' && (
-                    <p className="border-l-2 border-redline pl-4 text-[13px] text-ink-2">
+                    <p className="border-l-2 border-accent pl-4 text-[13px] text-ink-2">
                       {import.meta.env.VITE_WEB3FORMS_KEY
                         ? `That didn't send. Please email ${site.links.email} instead.`
                         : `The form is not connected yet. Email ${site.links.email} in the meantime.`}
@@ -272,7 +272,7 @@ export function Contact() {
   );
 }
 
-/** Underlined field — an editorial form has rules, not boxes. */
+/** Underlined field, an editorial form has rules, not boxes. */
 function Field({
   label,
   name,

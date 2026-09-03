@@ -5,7 +5,7 @@ import { useReducedMotion } from '@/hooks/useReducedMotion';
  * Letter-swap hover: the word slides up and out while an identical copy slides
  * in from below, letter by letter.
  *
- * Replaces the old ScrambleText, which decoded text with random glyphs — a
+ * Replaces the old ScrambleText, which decoded text with random glyphs, a
  * pure "hacker terminal" effect that fought the editorial direction.
  *
  * Both copies stay in the DOM but only one is exposed to assistive tech, so

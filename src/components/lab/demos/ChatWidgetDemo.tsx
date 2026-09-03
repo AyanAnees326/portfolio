@@ -5,7 +5,7 @@ import { Bot, Send, Wrench } from 'lucide-react';
 /**
  * A miniature of the agent pattern: message → visible tool call → answer.
  *
- * This one is scripted on purpose — it is a UI demo of the interaction shape,
+ * This one is scripted on purpose, it is a UI demo of the interaction shape,
  * not a live model. The real, model-backed agent is the "Ask my portfolio"
  * section further down the page.
  */
@@ -29,7 +29,7 @@ const SCRIPT: Record<string, { tool: string; reply: string }> = {
   'Do you build mobile apps?': {
     tool: 'search_services("mobile")',
     reply:
-      'Yes — React Native, so iOS and Android come from one codebase. That typically runs 3–8 weeks including store submission.',
+      'Yes. React Native, so iOS and Android come from one codebase. That typically runs 3–8 weeks including store submission.',
   },
 };
 

@@ -6,7 +6,7 @@ interface CardProps {
   className?: string;
   /** Recessed surface for code wells and insets. */
   inset?: boolean;
-  /** Lifts on hover — only for cards that are actually clickable. */
+  /** Lifts on hover, only for cards that are actually clickable. */
   interactive?: boolean;
   as?: 'div' | 'article' | 'section' | 'li';
 }
@@ -15,7 +15,7 @@ interface CardProps {
  * The one surface used across the site.
  *
  * Replaces the old GlassCard. Frosted translucency reads as a dark-UI trick and
- * looks muddy on paper — depth here comes from a hairline border and a soft,
+ * looks muddy on paper, depth here comes from a hairline border and a soft,
  * wide shadow instead.
  */
 export function Card({

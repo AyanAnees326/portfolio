@@ -18,7 +18,7 @@ interface MarqueeProps {
  * Infinite horizontal scroll. Children render twice and the track translates
  * -50%, so the loop is seamless with no JS measuring.
  *
- * With `followScroll`, the direction inverts when the reader scrolls up — a
+ * With `followScroll`, the direction inverts when the reader scrolls up, a
  * small physical touch that makes the strip feel attached to the page rather
  * than animating independently of it.
  */

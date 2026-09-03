@@ -1,4 +1,4 @@
-# Project brief — Ride Companion (React Native)
+# Project brief. Ride Companion (React Native)
 
 > **For a future Claude session.** This is a specification, not an implementation.
 > Build it as its own repository, separate from the portfolio site.
@@ -26,11 +26,11 @@ A companion app for motorcyclists covering three things riders actually do.
 - Start/stop a ride; track route via GPS with background location
 - Live stats: distance, duration, moving average, max speed, elevation
 - Route drawn on a map, replayable afterwards
-- Works with no signal — everything local-first, sync later
+- Works with no signal, everything local-first, sync later
 
 **2. Garage & maintenance**
 - Multiple bikes, each with make/model/year/photo and current odometer
-- Service log: oil, chain, tyres, brakes, valve clearance — date, mileage, cost, notes
+- Service log: oil, chain, tyres, brakes, valve clearance, date, mileage, cost, notes
 - Interval reminders based on mileage *or* time, whichever comes first
 - Running cost per bike and cost per mile
 
@@ -41,16 +41,16 @@ A companion app for motorcyclists covering three things riders actually do.
 
 ## Stack
 
-- Expo (managed workflow) + TypeScript — bare RN is not worth the pain here
+- Expo (managed workflow) + TypeScript, bare RN is not worth the pain here
 - `expo-location` with background permissions
 - `react-native-maps`, or Mapbox if offline tiles are needed
-- SQLite via `expo-sqlite` or WatermelonDB — **local-first is non-negotiable**,
+- SQLite via `expo-sqlite` or WatermelonDB, **local-first is non-negotiable**,
   riders lose signal constantly
 - Supabase for sync and group rides only, never as the primary store
 - `expo-notifications` for maintenance reminders
 - EAS Build for store submission
 
-## Things that will go wrong — handle them explicitly
+## Things that will go wrong, handle them explicitly
 
 - **Background location is the whole project.** iOS and Android both fight you.
   Get `Always` permission with a clear rationale screen, handle revocation
@@ -60,14 +60,14 @@ A companion app for motorcyclists covering three things riders actually do.
 - **GPS drift while stationary.** Traffic lights will accumulate phantom distance.
   Apply a speed threshold before accruing.
 - **Sync conflicts.** Two devices editing the same bike offline. Last-write-wins
-  per field is fine — just decide deliberately rather than discovering it.
+  per field is fine, just decide deliberately rather than discovering it.
 - **Store review.** Background location requires justification to Apple. Write it
   before submitting, and record a demo video.
 
 ## Definition of done
 
 - Record a real 30+ minute ride with the screen locked; route and stats are correct
-- Airplane mode: log maintenance, view past rides, start a new ride — all work
+- Airplane mode: log maintenance, view past rides, start a new ride, all work
 - A maintenance reminder fires on schedule
 - Two devices see each other on a shared group ride
 - Runs on both a physical iPhone and a physical Android device
@@ -76,5 +76,5 @@ A companion app for motorcyclists covering three things riders actually do.
 ## Portfolio integration
 
 Add to `src/content/projects.ts`, flip `status` to `shipped`, write the `study`
-blocks. Record a screen capture of a ride in progress — the Work section's hover
+blocks. Record a screen capture of a ride in progress, the Work section's hover
 previews take images, and a moving map is the most compelling frame this project has.

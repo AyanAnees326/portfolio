@@ -74,7 +74,7 @@ export function About() {
             </Reveal>
           </div>
 
-          {/* Stats — as a ruled table, not cards */}
+          {/* Stats, as a ruled table, not cards */}
           <RevealGroup className="h-fit border-t border-rule" stagger={0.08}>
             {about.stats.map((s) => (
               <RevealItem key={s.label}>
@@ -120,7 +120,7 @@ export function About() {
               Riding taught me how I debug
             </h3>
             <p className="mt-4 max-w-xl text-[16px] leading-relaxed text-ink-2">
-              Not a metaphor I reached for afterwards — genuinely where the habits came
+              Not a metaphor I reached for afterwards. Genuinely where the habits came
               from.
             </p>
           </Reveal>

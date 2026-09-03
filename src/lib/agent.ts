@@ -8,7 +8,7 @@ export interface ChatMessage {
 
 export interface AgentResult {
   reply: string;
-  /** Which tier answered — surfaced in the UI so the behaviour is honest. */
+  /** Which tier answered, surfaced in the UI so the behaviour is honest. */
   provider: 'databricks' | 'openrouter' | 'fallback';
   /** Retrieval trace shown in the UI as visible "tool calls". */
   sources: string[];

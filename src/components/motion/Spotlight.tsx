@@ -16,7 +16,7 @@ interface SpotlightProps {
  *
  * Deliberately does NOT gate on reduced-motion: it tracks the pointer rather
  * than animating on its own, so it reads as a lighting effect, not movement.
- * It does gate on pointer:fine — on touch it would just be a stuck blob.
+ * It does gate on pointer:fine, on touch it would just be a stuck blob.
  */
 export function Spotlight({
   children,

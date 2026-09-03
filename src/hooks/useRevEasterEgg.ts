@@ -3,7 +3,7 @@ import { useEffect } from 'react';
 const SEQUENCE = 'rev';
 
 /**
- * Motorcycle easter egg #5 — type "rev" anywhere on the page.
+ * Motorcycle easter egg #5, type "rev" anywhere on the page.
  *
  * Ignores keystrokes while an input, textarea or contenteditable has focus,
  * so typing "revenue" into the contact form doesn't fire it.

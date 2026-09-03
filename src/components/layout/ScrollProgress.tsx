@@ -1,7 +1,7 @@
 import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 
 /**
- * Motorcycle easter egg — the page progress hairline redlines.
+ * Motorcycle easter egg, the page progress hairline redlines.
  *
  * It runs ink for most of the page, then shifts to the reserved redline colour
  * over the last stretch, the way a tacho does approaching the limiter.

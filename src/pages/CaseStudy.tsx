@@ -15,7 +15,8 @@ export default function CaseStudy() {
 
   if (!project || !project.study) return <NotFound />;
 
-  const others = shippedProjects.filter((p) => p.slug !== project.slug);
+  // Three is a suggestion; six is a second navigation menu.
+  const others = shippedProjects.filter((p) => p.slug !== project.slug).slice(0, 3);
 
   return (
     <article className="relative">

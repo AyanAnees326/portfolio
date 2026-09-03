@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 /**
  * True only for devices with a precise pointer (mouse/trackpad).
  *
- * Hover-driven effects — the custom cursor, magnetic pull, spotlight, 3D tilt —
+ * Hover-driven effects (the custom cursor, magnetic pull, spotlight, 3D tilt)
  * are actively bad on touch: they fire on tap and leave elements stuck in a
  * hover state. Every such effect gates on this.
  */

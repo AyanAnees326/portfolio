@@ -5,7 +5,7 @@ import { AnimatePresence, motion } from 'framer-motion';
  *
  * Redrawn for the editorial pivot: an engraved instrument dial on paper rather
  * than the previous glowing dark gauge. The needle sweeps to the limiter,
- * bounces, and falls back. Silent — no autoplay audio.
+ * bounces, and falls back. Silent, no autoplay audio.
  */
 export function RevOverlay({ active }: { active: boolean }) {
   return (

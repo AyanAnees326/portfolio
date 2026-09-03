@@ -126,7 +126,7 @@ export default function AnalyticsDashboard() {
 
   return (
     <div className="flex h-full flex-col gap-3 p-4">
-      {/* Stat tiles — a headline number is not a chart, so it gets no plot. */}
+      {/* Stat tiles, a headline number is not a chart, so it gets no plot. */}
       <div className="grid grid-cols-3 gap-4 border-b border-rule pb-3">
         {stats.map((s) => (
           <div key={s.label}>
@@ -146,7 +146,7 @@ export default function AnalyticsDashboard() {
         ))}
       </div>
 
-      {/* Legend — always present at two or more series, so identity is never
+      {/* Legend, always present at two or more series, so identity is never
           carried by colour alone. */}
       <div className="flex items-center gap-4">
         {[

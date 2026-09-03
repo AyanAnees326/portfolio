@@ -18,7 +18,7 @@ interface Command {
 }
 
 /**
- * ⌘K palette. This is also Lab demo #8 — it is deliberately wired to the real
+ * ⌘K palette. This is also Lab demo #8, it is deliberately wired to the real
  * site rather than being a mock, because a component showcase that does not
  * actually work proves nothing.
  */
@@ -64,10 +64,10 @@ export function CommandPalette({
     const actions: Command[] = [
       {
         // The unlisted personal page. Reachable here as well as from the
-        // masthead — hidden should mean "not advertised", not "undiscoverable".
+        // masthead, hidden should mean "not advertised", not "undiscoverable".
         id: 'garage',
         label: 'The Garage',
-        hint: 'Unlisted — personal',
+        hint: 'Unlisted, personal',
         group: 'Work',
         icon: FileText,
         run: () => {

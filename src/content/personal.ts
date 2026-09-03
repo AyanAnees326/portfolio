@@ -1,5 +1,5 @@
 /**
- * The Garage — the hidden personal page at /garage.
+ * The Garage, the hidden personal page at /garage.
  *
  * Deliberately not in the main nav. It is found by hovering the masthead, or
  * through the command palette. A hidden page only works if what is behind it
@@ -10,18 +10,18 @@
 
 export const personal = {
   intro:
-    "You found the garage. Nothing here is trying to sell you anything — it's just the stuff I'd actually talk about if we met.",
+    "You found the garage. Nothing here is trying to sell you anything, it's just the stuff I'd actually talk about if we met.",
 
   bikes: [
     {
       name: 'Suzuki Bandit 250',
       detail: '1992 · engine-head rebuild',
       note:
-        'Nearly finished rebuilding the engine head. The hardest part was not the teardown or reassembly—it was sourcing the right replacement valves for a thirty-four-year-old bike.',
+        'Nearly finished rebuilding the engine head. The hardest part was not the teardown or reassembly, it was sourcing the right replacement valves for a thirty-four-year-old bike.',
     },
   ],
 
-  /** Niche interests — the specific, slightly obsessive ones. */
+  /** Niche interests, the specific, slightly obsessive ones. */
   interests: [
     {
       title: 'Wrenching',
@@ -36,7 +36,7 @@ export const personal = {
     {
       title: 'Gaming',
       body:
-        'I like systems that reward learning their rules—especially the moment a difficult mechanic stops feeling impossible and starts feeling readable.',
+        'I like systems that reward learning their rules, especially the moment a difficult mechanic stops feeling impossible and starts feeling readable.',
     },
     {
       title: 'Old music',
@@ -60,5 +60,5 @@ export const personal = {
   ],
 
   closing:
-    "That's the garage. Door's open — if any of this overlaps with you, say so when you get in touch.",
+    "That's the garage. Door's open, if any of this overlaps with you, say so when you get in touch.",
 };

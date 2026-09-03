@@ -6,7 +6,7 @@ import { useMotionValue, useSpring, useVelocity, useScroll, useTransform } from 
  *   - `skew`  a springy motion value in degrees, for the velocity-skew effect
  *   - `direction` 1 when scrolling down, -1 when scrolling up
  *
- * The skew is what makes scrolling feel physical rather than mechanical — it's
+ * The skew is what makes scrolling feel physical rather than mechanical, it's
  * the effect people notice without being able to name.
  */
 export function useScrollVelocity(maxSkew = 2.5) {
@@ -27,7 +27,7 @@ export function useScrollVelocity(maxSkew = 2.5) {
   return { skew, direction };
 }
 
-/** Static motion value of 0 — used to disable skew under reduced motion. */
+/** Static motion value of 0, used to disable skew under reduced motion. */
 export function useZero() {
   return useMotionValue(0);
 }

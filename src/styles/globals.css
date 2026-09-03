@@ -14,25 +14,25 @@
  * These are plain CSS custom properties rather than @theme values so
  * they can actually change at runtime. @theme inline (below) points
  * Tailwind's generated utilities at them, which means `bg-paper`
- * emits `var(--paper)` instead of baking in a hex — one attribute
+ * emits `var(--paper)` instead of baking in a hex, one attribute
  * flip re-themes the entire site.
  * ------------------------------------------------------------------ */
 :root,
 [data-theme='light'] {
   color-scheme: light;
 
-  --paper: #f7f4ef; /* page base — warm, never clinical white */
+  --paper: #f7f4ef; /* page base, warm, never clinical white */
   --paper-2: #fdfbf7; /* raised cards, nav, panels */
   --paper-3: #efeae1; /* insets, code wells, hover fills */
 
   --ink: #14120f; /* headlines, primary text */
-  --ink-2: #55504a; /* body copy — 7.0:1 on paper */
-  --ink-3: #6f695f; /* labels, captions, meta — 5.2:1 on paper */
+  --ink-2: #55504a; /* body copy, 7.0:1 on paper */
+  --ink-3: #6f695f; /* labels, captions, meta, 5.2:1 on paper */
 
-  --rule: rgb(20 18 15 / 0.14); /* hairlines — the main structural device */
+  --rule: rgb(20 18 15 / 0.14); /* hairlines, the main structural device */
   --rule-strong: rgb(20 18 15 / 0.26);
 
-  /* Petrol — a deep teal-blue. Cool against warm paper, which is what
+  /* Petrol, a deep teal-blue. Cool against warm paper, which is what
      gives the palette its tension; 7.6:1 on paper. */
   --accent: #1f5560;
   --accent-hover: #164048;
@@ -44,7 +44,7 @@
   --redline: #c1341f;
 
   /* Chart series. Validated against the card surface for this mode
-     (lightness band, chroma floor, CVD separation, contrast) — see
+     (lightness band, chroma floor, CVD separation, contrast), see
      scripts/validate_palette.js in the dataviz reference. These are
      deliberately NOT the oxide accent: chart colour answers to
      legibility, and a single brand hue cannot encode two series. */
@@ -81,7 +81,7 @@
 
   --redline: #e0432b;
 
-  /* Same two hues, re-stepped for the dark card surface — a selected
+  /* Same two hues, re-stepped for the dark card surface, a selected
      dark palette, not an automatic flip. */
   --series-1: #3987e5;
   --series-2: #d95926;
@@ -175,7 +175,7 @@
     overflow-x: hidden;
   }
 
-  /* Instrument Serif is a display face — it needs tight tracking and
+  /* Instrument Serif is a display face, it needs tight tracking and
      leading at the sizes we use it, or it reads as a body serif. */
   h1,
   h2,
@@ -225,7 +225,7 @@
 }
 
 /* ------------------------------------------------------------------ *
- * Surfaces. Glassmorphism is gone — it is a dark-UI effect and looks
+ * Surfaces. Glassmorphism is gone, it is a dark-UI effect and looks
  * cheap on paper. Depth now comes from shadow, rule weight and space.
  * ------------------------------------------------------------------ */
 @layer components {
@@ -273,7 +273,7 @@
     transform: scaleX(1);
   }
 
-  /* Paper grain. Kept from the previous build — it is the one texture
+  /* Paper grain. Kept from the previous build, it is the one texture
      that survives the pivot, because paper is exactly what we want. */
   .grain {
     position: fixed;
@@ -285,7 +285,7 @@
   }
 }
 
-/* Slim visible scrollbars inside code specimens — the scrollbar IS the
+/* Slim visible scrollbars inside code specimens, the scrollbar IS the
    affordance telling you the panel scrolls, so it must not be hidden. */
 @layer components {
   .code-scroll {
@@ -336,7 +336,7 @@
 }
 
 /* ------------------------------------------------------------------ *
- * Reduced motion — global kill switch. Components also check
+ * Reduced motion, global kill switch. Components also check
  * useReducedMotion(), but this catches CSS animation and the
  * view transition too.
  * ------------------------------------------------------------------ */

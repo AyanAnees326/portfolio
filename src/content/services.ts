@@ -35,7 +35,7 @@ export const services: Service[] = [
     icon: Smartphone,
     title: 'App Development',
     promise:
-      'Cross-platform mobile apps from one codebase — iOS and Android, native feel, no duplicated work.',
+      'Cross-platform mobile apps from one codebase: iOS and Android, native feel, no duplicated work.',
     deliverables: [
       'React Native app for both platforms',
       'Offline support and push notifications',
@@ -51,7 +51,7 @@ export const services: Service[] = [
     icon: Bot,
     title: 'AI Agents & Automation',
     promise:
-      'Agents that actually touch your systems — reading your data, calling your tools, and doing the repetitive work.',
+      'Agents that actually touch your systems: reading your data, calling your tools, and doing the repetitive work.',
     deliverables: [
       'Custom agent wired to your tools and data',
       'RAG over your documents and knowledge base',
@@ -67,7 +67,7 @@ export const services: Service[] = [
     icon: Layers,
     title: 'UI/UX Engineering',
     promise:
-      'The polish layer — design systems, animation and interaction work that makes a product feel expensive.',
+      'The polish layer: design systems, animation and interaction work that makes a product feel expensive.',
     deliverables: [
       'Reusable component library',
       'Design tokens and theming',

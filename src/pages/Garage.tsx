@@ -6,7 +6,7 @@ import { BikeSilhouette } from '@/components/ui/BikeSilhouette';
 import { Reveal, RevealGroup, RevealItem, LetterSwap } from '@/components/motion';
 
 /**
- * The Garage — the hidden personal page.
+ * The Garage, the hidden personal page.
  *
  * Reached by hovering the masthead or through the command palette; never in
  * the main nav. It is deliberately quieter and looser than the rest of the

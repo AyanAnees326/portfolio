@@ -1,7 +1,7 @@
 /**
  * Curated source excerpts shown behind each demo's "</> Code" toggle.
  *
- * These are excerpts, not the whole file — the point is to show the mechanism
+ * These are excerpts, not the whole file, the point is to show the mechanism
  * that makes each effect work, not 120 lines of layout markup. They are kept
  * here rather than inside the demo modules so the Lab can stay lazy-loaded
  * while the code toggles remain instant.
@@ -51,7 +51,7 @@ function handleMove(e: React.MouseEvent) {
 
   reveal: `
 // Each word rides up from behind a clipping mask. The mask is the
-// whole trick — without overflow-hidden the words just slide.
+// whole trick, without overflow-hidden the words just slide.
 {words.map((word, i) => (
   <span key={word} className="inline-block overflow-hidden">
     <motion.span
@@ -90,7 +90,7 @@ const CELLS = [
 
   skins: `
 // One markup tree, four identities. Nothing below the token object
-// changes between skins — this is the whole design-token argument.
+// changes between skins, this is the whole design-token argument.
 const SKINS = [
   { id: 'minimal',   surface: 'bg-white border border-black/10',
     button: 'bg-[#111] text-white rounded-full' },
@@ -108,7 +108,7 @@ const SKINS = [
 `,
 
   dashboard: `
-// Series colours come from a palette validated for the dark surface —
+// Series colours come from a palette validated for the dark surface:
 // lightness band, chroma floor, colour-blind separation, contrast.
 // Brand violet/cyan FAILS that check, so the chart doesn't use it.
 const SERIES_1 = '#3987e5';
@@ -145,7 +145,7 @@ const SERIES_2 = '#d95926';
 `,
 
   palette: `
-// Full keyboard control — the part most palettes get wrong.
+// Full keyboard control, the part most palettes get wrong.
 useEffect(() => {
   function onKey(e: KeyboardEvent) {
     if (e.key === 'Escape')          onClose();
@@ -167,7 +167,7 @@ useEffect(() => {
 
   stepper: `
 // AnimatePresence with mode="wait" so the outgoing step finishes
-// before the incoming one starts — no overlap, no layout jump.
+// before the incoming one starts, no overlap, no layout jump.
 <AnimatePresence mode="wait">
   <motion.div
     key={step}

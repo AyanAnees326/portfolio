@@ -15,7 +15,7 @@ export interface LabDemo {
 
 /**
  * Every demo is lazily imported. The Lab is the heaviest part of the site and
- * most visitors never scroll to all twelve — loading them on demand keeps the
+ * most visitors never scroll to all twelve, loading them on demand keeps the
  * initial bundle inside budget.
  */
 export const labDemos: LabDemo[] = [
@@ -75,7 +75,7 @@ export const labDemos: LabDemo[] = [
     id: 'stepper',
     title: 'Multi-step form',
     category: 'Forms',
-    goodFor: 'Onboarding, quote requests and checkout — higher completion rates',
+    goodFor: 'Onboarding, quote requests and checkout: higher completion rates',
     Component: lazy(() => import('./demos/MultiStepForm')),
   },
   {
@@ -96,14 +96,14 @@ export const labDemos: LabDemo[] = [
     id: 'compare',
     title: 'Before / after slider',
     category: 'Layout',
-    goodFor: 'Redesigns, renovations, portfolios — proving the change',
+    goodFor: 'Redesigns, renovations, portfolios: proving the change',
     Component: lazy(() => import('./demos/CompareSlider')),
   },
   {
     id: 'marquee',
     title: 'Infinite logo wall',
     category: 'Layout',
-    goodFor: 'Social proof — client logos, integrations, press mentions',
+    goodFor: 'Social proof: client logos, integrations, press mentions',
     Component: lazy(() => import('./demos/LogoWall')),
   },
 ];

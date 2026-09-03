@@ -3,8 +3,8 @@ import { useLocation } from 'react-router-dom';
 import { getProject } from '@/content/projects';
 import { site } from '@/content/site';
 
-const DEFAULT_TITLE = 'Ayan Anees — Full-stack & AI Agent Developer';
-const DEFAULT_DESCRIPTION = 'Ayan Anees builds web apps, mobile apps, and human-supervised AI systems. Based in Lahore and available remotely worldwide.';
+const DEFAULT_TITLE = 'Ayan Anees: Full-stack and AI Agent Developer';
+const DEFAULT_DESCRIPTION = 'Ayan Anees builds web apps, mobile apps, and AI systems that know when to stop and ask a person. Based in Lahore, working remotely.';
 
 function setMeta(selector: string, attribute: 'name' | 'property', key: string, content: string) {
   let element = document.head.querySelector<HTMLMetaElement>(selector);
@@ -25,18 +25,18 @@ export function Seo() {
     let noIndex = false;
 
     if (pathname === '/garage') {
-      title = `The Garage — ${site.name}`;
+      title = `The Garage: ${site.name}`;
       description = 'A 1992 Suzuki Bandit 250 engine-head rebuild, guitar, gaming, old music, and the curiosity behind the work.';
     } else if (pathname.startsWith('/work/')) {
       const project = getProject(pathname.split('/').pop() ?? '');
       if (project?.study) {
-        title = `${project.title} — ${site.name}`;
+        title = `${project.title}: ${site.name}`;
         description = project.summary;
       } else {
         noIndex = true;
       }
     } else if (pathname !== '/') {
-      title = `Page not found — ${site.name}`;
+      title = `Page not found: ${site.name}`;
       noIndex = true;
     }
 

@@ -8,10 +8,10 @@ import { Reveal } from '@/components/motion';
 import { askAgent, MAX_TURNS, type ChatMessage } from '@/lib/agent';
 
 const SUGGESTIONS = [
-  'What AI experience does he actually have?',
-  'Can he build me a booking website?',
+  'Which of these have public source code?',
+  'What did he build at NICL?',
+  'What was hardest about the pseudocode IDE?',
   'Is he available for freelance work?',
-  'What is he best at?',
 ];
 
 interface Entry extends ChatMessage {
@@ -24,7 +24,7 @@ export function Agent() {
     {
       role: 'assistant',
       content:
-        "Ask me anything about his work, skills, or whether he's a fit for your project. I answer from this site's content — so I can't make things up about him.",
+        "Ask me about the projects, the stack, or whether he is a fit for what you need. I answer from this site's own content, so if it is not written down here I will tell you I do not know.",
     },
   ]);
   const [input, setInput] = useState('');
@@ -50,7 +50,7 @@ export function Agent() {
     setEntries((e) => [...e, { role: 'user', content: q }]);
     setBusy(true);
 
-    // Show retrieval as it happens — watching the agent work is the point of
+    // Show retrieval as it happens, watching the agent work is the point of
     // this section, not just the answer it lands on.
     setTrace(['searching site content']);
     const history = entries.map(({ role, content }) => ({ role, content }));
@@ -83,7 +83,7 @@ export function Agent() {
             Interview me <span className="text-accent italic">without me</span>
           </>
         }
-        description="A retrieval-grounded agent that answers from this site's own content. It shows you which sources it pulled before it answers — the same transparency pattern I build into client systems."
+        description="It reads this site and answers from it. Every reply lists the sources it pulled first, so you can check the answer against them. Same pattern I build into the systems I ship."
       />
 
       <Reveal delay={0.12}>
@@ -185,7 +185,7 @@ export function Agent() {
               onChange={(e) => setInput(e.target.value)}
               disabled={busy || capped}
               maxLength={500}
-              placeholder={capped ? 'Question limit reached — email instead' : 'Ask a question…'}
+              placeholder={capped ? 'Question limit reached, email instead' : 'Ask a question…'}
               className="flex-1 bg-transparent px-2 text-[14px] outline-none placeholder:text-ink-3 disabled:opacity-50"
             />
             <button

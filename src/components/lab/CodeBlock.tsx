@@ -17,7 +17,7 @@ import { useTheme } from '@/hooks/useTheme';
  *   2. Scrollbars were hidden, removing the only cue that there was more to
  *      see. They are now visible and styled.
  *
- * The theme follows the site's light/dark setting — a permanently dark code
+ * The theme follows the site's light/dark setting, a permanently dark code
  * block in an off-white editorial layout reads as a pasted-in screenshot.
  */
 export function CodeBlock({ code, language = 'tsx' }: { code: string; language?: string }) {
@@ -31,7 +31,7 @@ export function CodeBlock({ code, language = 'tsx' }: { code: string; language?:
       setTimeout(() => setCopied(false), 1800);
     } catch {
       // Clipboard can be blocked by permissions policy; failing silently is
-      // better than an alert — the user can still select the text manually.
+      // better than an alert, the user can still select the text manually.
     }
   }
 

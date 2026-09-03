@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 
 /**
  * Before/after wipe. Driven by pointer events plus arrow keys, so it works on
- * mouse, touch and keyboard — a slider that only responds to a mouse is a
+ * mouse, touch and keyboard, a slider that only responds to a mouse is a
  * common and avoidable accessibility failure.
  */
 export default function CompareSlider() {
@@ -44,7 +44,7 @@ export default function CompareSlider() {
           </div>
         </div>
 
-        {/* Before (clipped from the left) — deliberately drab, so the wipe
+        {/* Before (clipped from the left), deliberately drab, so the wipe
             reads as a genuine improvement rather than a colour change. */}
         <div
           className="absolute inset-0 bg-[#9a968e]"

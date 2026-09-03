@@ -29,7 +29,7 @@ export const LEVEL_META: Record<Level, { label: string; pct: number; note: strin
 export interface Skill {
   name: string;
   level: Level;
-  /** Project ids this skill was used in — drives cross-highlighting. */
+  /** Project ids this skill was used in. Drives cross-highlighting. */
   usedIn: string[];
   /** Plain-English version for non-technical visitors. */
   plain: string;
@@ -74,7 +74,7 @@ export const skillGroups: SkillGroup[] = [
   {
     id: 'backend',
     title: 'Backend & Data',
-    blurb: 'The engine room — APIs, databases, and the glue between them.',
+    blurb: 'The engine room. APIs, databases, and the glue between them.',
     skills: [
       { name: 'Python', level: 'working', usedIn: ['agent-platform'], plain: 'Backend logic and AI workloads' },
       { name: 'Node.js', level: 'comfortable', usedIn: ['agent-platform'], plain: 'JavaScript on the server' },

@@ -1,7 +1,7 @@
 import { cn } from '@/lib/cn';
 
 /**
- * The site's logo mark and loading spinner — a six-spoke forged wheel in the
+ * The site's logo mark and loading spinner, a six-spoke forged wheel in the
  * Volk TE37 idiom: straight spokes that flare slightly toward a deep outer
  * lip, and a five-lug hub.
  *
@@ -24,7 +24,7 @@ export function Wheel({
    * One spoke, pointing up, before rotation.
    *
    * Narrow at the hub (±5.5) and wider at the rim (±7.6), with the long sides
-   * bowed very slightly inward — that concave taper is what makes it read as a
+   * bowed very slightly inward, that concave taper is what makes it read as a
    * forged wheel rather than a pie slice.
    */
   const spoke = (
@@ -59,7 +59,7 @@ export function Wheel({
       className={cn(spinning && 'animate-[spin_2.2s_linear_infinite]', className)}
       fill="none"
     >
-      {/* Outer lip — the thick barrel edge the TE37 is known for */}
+      {/* Outer lip, the thick barrel edge the TE37 is known for */}
       <circle cx={C} cy={C} r={45.5} stroke="currentColor" strokeWidth={5} />
       {/* Inner rim face */}
       <circle cx={C} cy={C} r={40} stroke="currentColor" strokeWidth={2} />

@@ -9,8 +9,8 @@ test('navigates work, Garage, and the published resume', async ({ page, request 
   await page.goto('/');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Web apps');
   await page.goto('/work/agent-platform');
-  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Agentic Operations Platform');
-  await expect(page.getByText('Synthetic workflow reconstruction')).toBeVisible();
+  await expect(page.getByRole('heading', { level: 1 })).toHaveText('Invoice and Purchase Order Pipeline');
+  await expect(page.getByText('Under NDA')).toBeVisible();
   await page.goto('/garage');
   await expect(page.getByRole('heading', { level: 1 })).toContainText('Garage');
   await expect(page.getByText('Suzuki Bandit 250', { exact: true })).toBeVisible();

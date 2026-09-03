@@ -3,11 +3,9 @@ import { Link } from 'react-router-dom';
 import { ArrowUpRight, Lock } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
-import { Card } from '@/components/ui/Card';
-import { Chip } from '@/components/ui/Chip';
 import { HoverPreview, type PreviewItem } from '@/components/ui/HoverPreview';
-import { Reveal, RevealGroup, RevealItem } from '@/components/motion';
-import { plannedProjects, shippedProjects } from '@/content/projects';
+import { Reveal } from '@/components/motion';
+import { shippedProjects } from '@/content/projects';
 import { cn } from '@/lib/cn';
 
 /**
@@ -31,12 +29,12 @@ export function Work() {
             What I have <span className="text-accent italic">shipped</span>
           </>
         }
-        description="Two documented builds, with three future projects still in the garage. Shipped work is separated from planned work on purpose — you should always be able to tell which is which."
+        description="Every one has a case study. Two were built at work and cannot show real data, so those screenshots run against invented records. The rest you can clone and run yourself."
       />
 
       <HoverPreview item={hovered} />
 
-      {/* Shipped — the index */}
+      {/* Shipped: the index */}
       <div
         className="mt-16 border-t border-rule"
         onMouseLeave={() => {
@@ -71,7 +69,7 @@ export function Work() {
                 {p.nda && (
                   <p className="mt-4 inline-flex items-center gap-2 text-[12px] text-ink-3">
                     <Lock className="h-3 w-3" />
-                    Client and internals withheld under NDA — architecture shown.
+                    Built at work. Data and internals withheld, architecture shown.
                   </p>
                 )}
               </div>
@@ -89,41 +87,6 @@ export function Work() {
             </Link>
           </Reveal>
         ))}
-      </div>
-
-      {/* In the garage */}
-      <div className="mt-20">
-        <Reveal>
-          <div className="flex items-baseline gap-4 border-t border-rule pt-4">
-            <span className="eyebrow text-accent">(—)</span>
-            <span className="eyebrow">In the garage</span>
-          </div>
-          <h3 className="mt-6 text-[clamp(1.5rem,3vw,2.25rem)]">Building next</h3>
-          <p className="mt-3 max-w-xl text-[15px] leading-relaxed text-ink-2">
-            Listed openly rather than hidden — building in public is how the work
-            gets better.
-          </p>
-        </Reveal>
-
-        <RevealGroup className="mt-8 grid gap-4 sm:grid-cols-3" stagger={0.08}>
-          {plannedProjects.map((p) => (
-            <RevealItem key={p.id}>
-              <Card className="h-full p-6">
-                <div className="flex items-center justify-between">
-                  <span className="eyebrow text-accent">{p.year}</span>
-                  <span className="h-1.5 w-1.5 animate-[pulse-dot_2.4s_ease-in-out_infinite] rounded-full bg-accent" />
-                </div>
-                <h4 className="mt-4 text-[1.4rem] leading-tight">{p.title}</h4>
-                <p className="mt-3 text-[14px] leading-relaxed text-ink-2">{p.summary}</p>
-                <div className="mt-5 flex flex-wrap gap-1.5">
-                  {p.stack.slice(0, 3).map((s) => (
-                    <Chip key={s}>{s}</Chip>
-                  ))}
-                </div>
-              </Card>
-            </RevealItem>
-          ))}
-        </RevealGroup>
       </div>
     </Section>
   );

@@ -1,5 +1,5 @@
 /**
- * Chat endpoint — the ONLY place provider credentials are read.
+ * Chat endpoint, the ONLY place provider credentials are read.
  *
  * ⚠️ Nothing in this file may ever be imported from `src/`. Vite would inline
  * the values into the client bundle and a Databricks PAT in a public bundle is
@@ -20,8 +20,13 @@ Rules:
 - Answer ONLY from the CONTEXT provided. If the context does not cover it, say so plainly and point them to the contact form or email.
 - Never invent projects, clients, prices, employers, dates or credentials.
 - If context is marked CONFIDENTIALITY, respect it absolutely: never name the client or industry, and never describe agent internals or prompts.
-- Speak as the developer's assistant in third person ("he builds…", "his work…"). Never claim to be the developer.
+- Speak as the developer's assistant in third person ("he builds", "his work"). Never claim to be the developer.
 - Be concise: 2-4 sentences. No bullet lists unless asked. No emoji.
+- Every project in CONTEXT is labelled shipped or planned. Never describe planned work as if it were built.
+- Some projects state their source code is private. Never imply private code can be browsed and never invent a repository URL. Say the code is not public and point to the case study.
+- Quote only figures that appear verbatim in CONTEXT. Do not estimate, round or add up numbers yourself.
+- The sign shop project is self-directed spec work for a business that does not exist. Never describe it as client work.
+- Write plain sentences. No em-dashes, no rule-of-three lists, no marketing adjectives.
 - If asked something off-topic, redirect to what this site is about.`;
 
 const MAX_QUESTION_LEN = 500;
@@ -36,7 +41,7 @@ const RESPONSE_HEADERS = {
 };
 
 // Best-effort per-IP limiting. Edge instances are ephemeral and not shared, so
-// this throttles the common case rather than providing a hard guarantee — the
+// this throttles the common case rather than providing a hard guarantee. The
 // real cost ceiling is MAX_TOKENS plus the client-side turn cap.
 const RATE_WINDOW_MS = 60_000;
 const RATE_MAX = 10;
@@ -118,7 +123,7 @@ async function databricksToken(host: string): Promise<string | null> {
   return data.access_token;
 }
 
-/** Tier 1 — least-privilege Databricks service-principal OAuth. */
+/** Tier 1: least-privilege Databricks service-principal OAuth. */
 async function callDatabricks(messages: unknown[]): Promise<string | null> {
   const host = process.env.DATABRICKS_HOST?.replace(/\/+$/, '');
   const endpoint = process.env.DATABRICKS_ENDPOINT;
@@ -143,7 +148,7 @@ async function callDatabricks(messages: unknown[]): Promise<string | null> {
 /**
  * OpenRouter free-model discovery.
  *
- * Free-tier model ids churn constantly — models get renamed, retired or moved
+ * Free-tier model ids churn constantly. Models get renamed, retired or moved
  * off free tier without notice, so a hardcoded id is a fallback that quietly
  * dies in a few months. We fetch the live list and filter to zero-price, and
  * only fall back to the seed list if that request itself fails.
@@ -190,7 +195,7 @@ async function freeModels(key: string): Promise<string[]> {
   }
 }
 
-/** Tier 2 — walk the free-model list until one answers. */
+/** Tier 2: walk the free-model list until one answers. */
 async function callOpenRouter(messages: unknown[]): Promise<string | null> {
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) return null;
@@ -245,7 +250,7 @@ export default async function handler(request: Request): Promise<Response> {
   if (!question) return json({ error: 'question required' }, 400);
   if (!history) return json({ error: 'invalid history' }, 400);
 
-  const chunks = retrieve(question, 5);
+  const chunks = retrieve(question, 6);
   const sources = [...new Set(chunks.map((chunk) => chunk.source))];
   const context = chunks.map((chunk) => `[${chunk.source}] ${chunk.text}`).join('\n\n').slice(0, 8_000);
   const messages = buildMessages(question, context, history);
@@ -254,7 +259,7 @@ export default async function handler(request: Request): Promise<Response> {
     const reply = await callDatabricks(messages);
     if (reply) return json({ reply, provider: 'databricks', sources });
   } catch {
-    // Fall through to tier 2 — quota, expired token, cold endpoint, timeout.
+    // Fall through to tier 2: quota, expired token, cold endpoint, timeout.
   }
 
   const orReply = await callOpenRouter(messages);

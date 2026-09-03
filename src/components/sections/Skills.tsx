@@ -10,7 +10,7 @@ import { cn } from '@/lib/cn';
 /**
  * Proficiency arc.
  *
- * Motorcycle easter egg — the geometry is a tacho sweep. Drawn in rule weight
+ * Motorcycle easter egg, the geometry is a tacho sweep. Drawn in rule weight
  * and only filling to oxide on hover, so it stays a quiet editorial meter
  * until you interact with it.
  */
@@ -80,7 +80,7 @@ export function Skills() {
             <span key={k} className="flex items-center gap-2.5 text-[13px] text-ink-3">
               <Arc pct={LEVEL_META[k].pct} active={false} />
               <span className="text-ink">{LEVEL_META[k].label}</span>
-              <span className="hidden sm:inline">— {LEVEL_META[k].note}</span>
+              <span className="hidden sm:inline">· {LEVEL_META[k].note}</span>
             </span>
           ))}
         </div>
@@ -137,7 +137,7 @@ export function Skills() {
               </>
             ) : (
               <>
-                <span className="text-accent">{hovered.name}</span> — not yet in a shipped
+                <span className="text-accent">{hovered.name}</span>: not yet in a shipped
                 project
               </>
             )}

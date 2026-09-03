@@ -29,7 +29,7 @@ function RouteFallback() {
   );
 }
 
-/** Reset scroll on route change — Lenis does not do this for us. */
+/** Reset scroll on route change. Lenis does not do this for us. */
 function ScrollReset() {
   const { pathname } = useLocation();
   useEffect(() => {

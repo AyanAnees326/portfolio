@@ -7,7 +7,7 @@ import { cn } from '@/lib/cn';
 const IDS = NAV_SECTIONS.map((s) => s.id);
 
 /**
- * Gallery catalogue index — a fixed left rail of numbered sections with the
+ * Gallery catalogue index, a fixed left rail of numbered sections with the
  * current one marked in oxide.
  *
  * Only on very wide screens, where the margin exists to hold it without

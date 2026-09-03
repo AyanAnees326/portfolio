@@ -17,8 +17,8 @@ const SECTION_IDS = NAV_SECTIONS.map((s) => s.id);
 /**
  * Masthead.
  *
- * Full-width with a hairline underneath rather than a floating glass pill —
- * a masthead is what a publication has, and it makes the page feel like a
+ * Full-width with a hairline underneath rather than a floating glass pill.
+ * A masthead is what a publication has, and it makes the page feel like a
  * printed spread rather than an app shell.
  */
 export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
@@ -60,7 +60,7 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
       >
         <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
           {/* Masthead. data-cursor-minimal shrinks the custom cursor to a dot
-              here — a labelled disc would sit right on top of the wordmark,
+              here, a labelled disc would sit right on top of the wordmark,
               which is the one thing that must stay readable. */}
           <div className="group/mast relative flex items-center" data-cursor-minimal>
             <button
@@ -74,7 +74,7 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
               </span>
             </button>
 
-            {/* The hidden door. Appears only on masthead hover — findable,
+            {/* The hidden door. Appears only on masthead hover, findable,
                 but not advertised. Keyboard users get it via focus-within. */}
             <Link
               to="/garage"
@@ -92,7 +92,7 @@ export function Nav({ onOpenPalette }: { onOpenPalette: () => void }) {
             </Link>
           </div>
 
-          {/* The link row needs real room — at md it collides with the
+          {/* The link row needs real room, at md it collides with the
               actions cluster, so it only appears from lg up. */}
           <div className="hidden items-center gap-6 lg:flex">
             {NAV_SECTIONS.map((s) => (

@@ -2,7 +2,7 @@ import type { ReactNode } from 'react';
 import { cn } from '@/lib/cn';
 
 /**
- * Small metadata tag. Sans rather than mono — dropping monospace from labels
+ * Small metadata tag. Sans rather than mono, dropping monospace from labels
  * is most of what separates "editorial" from "developer tool".
  */
 export function Chip({

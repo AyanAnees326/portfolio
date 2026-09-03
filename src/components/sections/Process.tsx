@@ -8,7 +8,7 @@ const STEPS = [
   {
     n: '01',
     title: 'Discover',
-    what: 'We talk about what you actually need — not what you think you should ask for.',
+    what: 'We talk about what you actually need, not what you think you should ask for.',
     get: 'A written scope, a fixed price, and a delivery date.',
   },
   {
@@ -31,7 +31,7 @@ const STEPS = [
   },
 ];
 
-const AUTO_SPEED = 0.25; // px/frame — a drift, not a carousel
+const AUTO_SPEED = 0.25; // px/frame, a drift, not a carousel
 const FRICTION = 0.93; // momentum decay after a drag
 const RESUME_DELAY = 2600; // ms of stillness before auto-drift resumes
 
@@ -40,7 +40,7 @@ const RESUME_DELAY = 2600; // ms of stillness before auto-drift resumes
  *
  * Deliberately does NOT intercept the mouse wheel. An earlier version
  * translated vertical wheel into horizontal travel, which made the page feel
- * like it was fighting the reader — the scrollbar would stall for no visible
+ * like it was fighting the reader, the scrollbar would stall for no visible
  * reason. Vertical scroll now belongs entirely to the page.
  *
  * Sideways movement comes from things that are unambiguously sideways:
@@ -103,7 +103,7 @@ export function Process() {
     return () => cancelAnimationFrame(raf);
   }, [reduced]);
 
-  /** Click-and-drag with momentum — this is what makes it feel flowy. */
+  /** Click-and-drag with momentum, this is what makes it feel flowy. */
   function onPointerDown(e: React.PointerEvent<HTMLDivElement>) {
     const el = trackRef.current;
     if (!el || e.pointerType === 'touch') return; // touch pans natively
@@ -180,7 +180,7 @@ export function Process() {
               How working together <span className="text-accent italic">actually goes</span>
             </>
           }
-          description="The most common worry about hiring a developer is not skill — it is silence. Here is exactly what happens and what you get at each stage."
+          description="The most common worry about hiring a developer is not skill, it is silence. Here is exactly what happens and what you get at each stage."
         />
 
         <motion.div
@@ -217,11 +217,11 @@ export function Process() {
         onWheel={holdIdle}
         /* Minimal cursor, grab variant: a full labelled disc here sat on top
            of the copy, but the section still needs to say "you can drag
-           this" — so it gets a compact hand icon that closes into a fist
+           this", so it gets a compact hand icon that closes into a fist
            on pointerdown, instead of either extreme. */
         data-cursor-minimal="grab"
         role="group"
-        aria-label="Process steps — scroll horizontally"
+        aria-label="Process steps, scroll horizontally"
         tabIndex={0}
         className={[
           'scrollbar-none mt-10 flex cursor-grab gap-8 overflow-x-auto px-6 pb-4 sm:gap-12',
@@ -229,7 +229,7 @@ export function Process() {
           // Contain horizontal overscroll so dragging past the end cannot
           // trigger the browser's back-navigation gesture.
           'overscroll-x-contain',
-          // The focus ring is a full-width 2px accent rule across the section —
+          // The focus ring is a full-width 2px accent rule across the section, so
           // it read as a rendering bug. Keyboard users still get a visible cue
           // from the inset ring below.
           'outline-none focus-visible:ring-1 focus-visible:ring-accent focus-visible:ring-inset',

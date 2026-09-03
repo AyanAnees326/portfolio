@@ -2,7 +2,7 @@ import { Command, CornerDownLeft } from 'lucide-react';
 import { Magnetic } from '@/components/motion';
 
 /**
- * Lab demo #8 — the only demo that isn't self-contained, deliberately.
+ * Lab demo #8, the only demo that isn't self-contained, deliberately.
  *
  * It opens the site's real command palette rather than a mock copy. A
  * component showcase where nothing is actually wired up proves nothing, so
@@ -32,7 +32,7 @@ export default function CommandPaletteDemo() {
         <p>Fuzzy search, grouped results, full keyboard control.</p>
         <p className="flex items-center justify-center gap-1.5 text-[10px] text-ink-3">
           <CornerDownLeft className="h-3 w-3" />
-          this one is wired to the real site — try navigating with it
+          this one is wired to the real site, try navigating with it
         </p>
       </div>
     </div>

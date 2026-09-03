@@ -12,7 +12,7 @@ function current(): Theme {
  * Theme state.
  *
  * The initial value is read from the DOM rather than recomputed, because
- * index.html already resolved it before first paint — recomputing here would
+ * index.html already resolved it before first paint, recomputing here would
  * risk disagreeing with what the user is looking at.
  */
 export function useTheme() {
@@ -27,7 +27,7 @@ export function useTheme() {
     try {
       localStorage.setItem(STORAGE_KEY, next);
     } catch {
-      // Private mode or blocked storage — the theme still applies for
+      // Private mode or blocked storage, the theme still applies for
       // this session, it just won't be remembered.
     }
     setThemeState(next);
@@ -81,7 +81,7 @@ export function useTheme() {
             },
           );
         })
-        // `ready` rejects whenever the browser skips the transition — a rapid
+        // `ready` rejects whenever the browser skips the transition, a rapid
         // second click, a backgrounded tab, an overlapping transition. The
         // theme has already been applied by then, so there is nothing to
         // recover; swallowing this just stops an unhandled rejection.

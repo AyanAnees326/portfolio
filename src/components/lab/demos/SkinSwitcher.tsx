@@ -2,11 +2,11 @@ import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 /**
- * Lab demo #5 — one mock business site, four visual identities, one click.
+ * Lab demo #5, one mock business site, four visual identities, one click.
  *
  * This is the demo that does the most sales work: a prospective client sees
  * their own site in four flavours in four clicks. Every skin is driven purely
- * by the token object below — the markup never changes, which is exactly the
+ * by the token object below, the markup never changes, which is exactly the
  * design-token argument made visible.
  */
 interface Skin {
@@ -105,7 +105,7 @@ export default function SkinSwitcher() {
         ))}
       </div>
 
-      {/* The mock site — markup is identical across skins */}
+      {/* The mock site, markup is identical across skins */}
       <motion.div
         key={skin.id}
         initial={{ opacity: 0.4 }}
@@ -162,7 +162,7 @@ export default function SkinSwitcher() {
       </motion.div>
 
       <p className="text-center text-[11px] text-ink-3">
-        Same markup, four identities — driven entirely by design tokens.
+        Same markup, four identities, driven entirely by design tokens.
       </p>
     </div>
   );

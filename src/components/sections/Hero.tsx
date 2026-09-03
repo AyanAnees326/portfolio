@@ -9,7 +9,7 @@ import { scrollToId } from '@/components/layout/SmoothScroll';
  * Typographic hero.
  *
  * The particle network and gradient mesh are gone. What carries this now is
- * scale, whitespace and a single oxide word — which is what an editorial
+ * scale, whitespace and a single oxide word, which is what an editorial
  * opening spread does, and it makes the page feel expensive rather than busy.
  */
 export function Hero() {
@@ -58,7 +58,7 @@ export function Hero() {
             transition={{ duration: 0.8, delay: 0.75 }}
             className="max-w-lg text-[17px] leading-relaxed text-pretty text-ink-2"
           >
-            I&apos;m {site.name.split(' ')[0]} — a developer who builds the whole
+            I&apos;m {site.name.split(' ')[0]}, a developer who builds the whole
             thing: the interface people use, the backend behind it, and the AI
             that does the work nobody wants to do twice.
           </motion.p>

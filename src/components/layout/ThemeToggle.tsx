@@ -10,13 +10,13 @@ const NUDGED_KEY = 'portfolio:toggle-nudged';
 /**
  * Light/dark switch.
  *
- * Rebuilt simple after the first version — a disc with a sliding crescent
- * "bite" plus retracting rays — read as visual noise at 32px rather than as a
+ * Rebuilt simple after the first version, a disc with a sliding crescent
+ * "bite" plus retracting rays, read as visual noise at 32px rather than as a
  * sun or a moon. A knob that slides, carrying a clean icon that swaps with a
  * rotate-and-fade, is legible instantly, which is the entire job.
  *
  * It nudges once per tab session shortly after load so visitors discover the
- * dark mode exists. Once only — a control that keeps waving at you is an
+ * dark mode exists. Once only, a control that keeps waving at you is an
  * irritation, not an affordance.
  */
 export function ThemeToggle({ className }: { className?: string }) {
@@ -31,7 +31,7 @@ export function ThemeToggle({ className }: { className?: string }) {
       if (sessionStorage.getItem(NUDGED_KEY)) return;
       sessionStorage.setItem(NUDGED_KEY, '1');
     } catch {
-      // Storage blocked — nudge anyway; it just repeats on the next load.
+      // Storage blocked, nudge anyway; it just repeats on the next load.
     }
     const start = setTimeout(() => setNudge(true), 2000);
     const stop = setTimeout(() => setNudge(false), 3600);

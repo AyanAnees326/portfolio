@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/cn';
 
 /**
- * Line-art motorcycle for the About section — the one place the moto theme is
+ * Line-art motorcycle for the About section, the one place the moto theme is
  * allowed to be literal. Strokes draw themselves in on scroll-into-view.
  */
 export function BikeSilhouette({ className }: { className?: string }) {

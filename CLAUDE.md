@@ -9,7 +9,7 @@ development work, plus a resume for recruiters. Vite + React 19 + TypeScript +
 Tailwind v4, deployed on Vercel.
 
 The owner is a student currently interning, with two shipped projects. The site
-therefore wins on **demonstrated capability**, not track record — which is why
+therefore wins on **demonstrated capability**, not track record, which is why
 the interactive component Lab is the centrepiece, not a garnish.
 
 ## Commands
@@ -18,10 +18,10 @@ the interactive component Lab is the centrepiece, not a garnish.
 npm run dev          # dev server on :5173
 npm run build        # typecheck + production build
 npm run typecheck    # types only
-npm run check:secrets # MUST pass before any deploy — see below
+npm run check:secrets # MUST pass before any deploy, see below
 ```
 
-## Design system — read this before touching styles
+## Design system, read this before touching styles
 
 The visual language is **editorial / gallery**: warm off-white paper, oversized
 Instrument Serif headlines, hairline rules, wide margins. Light is the default;
@@ -47,7 +47,7 @@ attribute flip re-themes the whole site. Changing the accent is **two lines** in
 
 ### Rules that are easy to break
 
-- **Accent discipline.** Roughly one accent element per viewport — a section
+- **Accent discipline.** Roughly one accent element per viewport, a section
   number, one word in a headline, the active state. Two competing accents on
   screen means one is wrong.
 - **No monospace in the UI.** `font-mono` belongs only in `CodeBlock.tsx`. Mono
@@ -55,7 +55,7 @@ attribute flip re-themes the whole site. Changing the accent is **two lines** in
   Use the `.eyebrow` class for catalogue labels.
 - **No glassmorphism, no gradient meshes, no neon glow.** Depth comes from
   hairlines, shadow and whitespace. `.card` is the only surface.
-- **`--redline` is reserved** for motorcycle easter eggs only — never as a general
+- **`--redline` is reserved** for motorcycle easter eggs only, never as a general
   error or accent colour. It is deliberately distinct from the accent.
 - **Chart colour is exempt from brand rules.** `--series-1/2` are validated per
   theme for contrast and colour-blind separation. Do not "fix" them to match the
@@ -68,12 +68,12 @@ curtains. Animate `transform`/`opacity`/`clip-path` only.
 
 Every motion component gates on `useReducedMotion()`, and hover-driven effects
 (cursor, magnetic, tilt, spotlight, hover previews) also gate on
-`usePointerFine()` — they misbehave badly on touch.
+`usePointerFine()`, they misbehave badly on touch.
 
 ## Architecture
 
 ```
-api/chat.ts              Vercel edge fn — the ONLY place provider keys are read
+api/chat.ts              Vercel edge fn, the ONLY place provider keys are read
 src/content/*.ts         All copy and data. Edit here, never inline in JSX.
 src/components/motion/    Magnetic, Spotlight, Tilt3D, Reveal, CountUp, LetterSwap
 src/components/ui/        Card, Button, Chip, Section, SectionHeading, Wheel, …
@@ -86,7 +86,7 @@ src/components/lab/       The 12 demos + registry + snippets
 the AI agent's RAG corpus (`src/lib/rag.ts`), so the agent can never contradict
 what the site claims. Update a project there and the agent's answers update too.
 
-## The AI agent — three-tier cascade
+## The AI agent, three-tier cascade
 
 `Databricks Model Serving → OpenRouter free models → scripted answers`
 
@@ -95,10 +95,10 @@ what the site claims. Update a project there and the agent's answers update too.
 - OpenRouter free model ids churn constantly, so the function fetches the live
   zero-price list rather than hardcoding one. The hardcoded list is a last-ditch seed.
 
-### Credential safety — non-negotiable
+### Credential safety, non-negotiable
 
 `api/chat.ts` must **never** be imported from `src/`. A Databricks PAT is a
-*workspace credential*, not just a billing risk — it inherits the permissions of
+*workspace credential*, not just a billing risk, it inherits the permissions of
 the identity that minted it. Anything Vite can see ships to the browser in
 plaintext.
 

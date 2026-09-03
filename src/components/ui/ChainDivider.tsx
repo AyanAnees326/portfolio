@@ -5,7 +5,7 @@ import { cn } from '@/lib/cn';
  *
  * The pivot made this better, not worse: in an editorial layout a hairline
  * rule between sections is expected, so this reads as a normal rule at a
- * glance and only resolves into chain links when you actually look at it —
+ * glance and only resolves into chain links when you actually look at it,
  * which is exactly what an easter egg should do.
  */
 export function ChainDivider({ className }: { className?: string }) {

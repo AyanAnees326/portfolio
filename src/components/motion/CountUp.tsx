@@ -38,7 +38,7 @@ export function CountUp({
     const start = performance.now();
     const tick = (now: number) => {
       const t = Math.min((now - start) / duration, 1);
-      // easeOutExpo — fast then settles, matches the site's motion curve.
+      // easeOutExpo, fast then settles, matches the site's motion curve.
       const eased = t === 1 ? 1 : 1 - Math.pow(2, -10 * t);
       setValue(from + (to - from) * eased);
       if (t < 1) raf = requestAnimationFrame(tick);

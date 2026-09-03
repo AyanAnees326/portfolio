@@ -1,4 +1,4 @@
-# Project brief — Restaurant Ordering & Reservation Platform
+# Project brief. Restaurant Ordering & Reservation Platform
 
 > **For a future Claude session.** This is a specification, not an implementation.
 > Build it as its own repository, separate from the portfolio site.
@@ -30,9 +30,9 @@ A platform for a single independent restaurant, covering three distinct users:
 - Menu browsing with categories, dietary tags, item modifiers (size, extras)
 - Cart with running total, tax and tip
 - Stripe Checkout for payment
-- Table reservation with real availability — party size, date, time slot, covers cap
+- Table reservation with real availability, party size, date, time slot, covers cap
 - Order confirmation page plus emailed receipt
-- Order status tracking by link (no account required — accounts kill SMB conversion)
+- Order status tracking by link (no account required, accounts kill SMB conversion)
 
 **Kitchen order board**
 - Live queue, newest first, with an audible cue on arrival
@@ -48,9 +48,9 @@ A platform for a single independent restaurant, covering three distinct users:
 
 ## Stack
 
-- React + TypeScript + Tailwind (Vite or Next.js — Next preferred for SEO on the public menu)
+- React + TypeScript + Tailwind (Vite or Next.js. Next preferred for SEO on the public menu)
 - Supabase: Postgres, auth for staff only, realtime for the order board, storage for dish photos
-- Stripe Checkout — hosted, so no card data ever touches the app
+- Stripe Checkout, hosted, so no card data ever touches the app
 - Resend or Postmark for transactional email
 - Deploy on Vercel
 
@@ -67,7 +67,7 @@ order_items   id, order_id, menu_item_id, qty, modifiers_json, line_total_cents
 reservations  id, restaurant_id, name, phone, email, party_size, slot_at, status
 ```
 
-## Things that will go wrong — handle them explicitly
+## Things that will go wrong, handle them explicitly
 
 - **Double-booking.** Two diners taking the last table simultaneously. Enforce the
   covers cap in a database transaction, not in application code.
@@ -93,4 +93,4 @@ reservations  id, restaurant_id, name, phone, email, party_size, slot_at, status
 
 Add to `src/content/projects.ts` on the portfolio, change `status` from `planned`
 to `shipped`, and write the `study` blocks. Capture screenshots for the Work
-section's hover previews — that section is designed around real imagery.
+section's hover previews, that section is designed around real imagery.

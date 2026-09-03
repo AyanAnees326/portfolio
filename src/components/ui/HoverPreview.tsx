@@ -19,7 +19,7 @@ export interface PreviewItem {
  * parent list rather than per row, so only one preview can ever be in flight.
  *
  * Until real screenshots exist, `image` is undefined and we draw a paper
- * specimen instead — placeholder, but a deliberate-looking one.
+ * specimen instead, placeholder, but a deliberate-looking one.
  */
 export function HoverPreview({ item }: { item: PreviewItem | null }) {
   const fine = usePointerFine();

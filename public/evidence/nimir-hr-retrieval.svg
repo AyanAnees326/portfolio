@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 800" role="img" aria-labelledby="t d">
+  <title id="t">HR assistant retrieval path</title><desc id="d">Documents are parsed and embedded on Databricks once, then every question is answered against a local index.</desc>
+  <rect width="1200" height="800" fill="#14120f"/><rect x="70" y="70" width="1060" height="660" rx="12" fill="#1c1916" stroke="#514b43"/>
+  <text x="110" y="128" fill="#f2efe8" font-family="Arial" font-size="28">How an answer gets its citation</text>
+  <text x="110" y="160" fill="#8b8479" font-family="Arial" font-size="16">Indexing runs once per document. Every question after that stays on the app server.</text>
+
+  <g font-family="Arial">
+    <text x="110" y="222" fill="#6fb6c4" font-size="13" letter-spacing="2.5">INDEXING · ONCE PER DOCUMENT</text>
+    <text x="110" y="457" fill="#6fb6c4" font-size="13" letter-spacing="2.5">QUERY · EVERY QUESTION</text>
+
+    <g fill="#25211c" stroke="#6fb6c4" stroke-width="2">
+      <rect x="110" y="235" width="215" height="130" rx="8"/><rect x="365" y="235" width="215" height="130" rx="8"/>
+      <rect x="620" y="235" width="215" height="130" rx="8"/><rect x="875" y="235" width="215" height="130" rx="8"/>
+      <rect x="110" y="470" width="215" height="130" rx="8"/><rect x="365" y="470" width="215" height="130" rx="8"/>
+      <rect x="620" y="470" width="215" height="130" rx="8"/><rect x="875" y="470" width="215" height="130" rx="8"/>
+    </g>
+
+    <g fill="#f2efe8" font-size="19">
+      <text x="132" y="273">Policy PDF</text><text x="387" y="273">Parse on Databricks</text>
+      <text x="642" y="273">Embed the chunks</text><text x="897" y="273">Index on disk</text>
+      <text x="132" y="508">The question</text><text x="387" y="508">Two searches</text>
+      <text x="642" y="508">Fuse with RRF</text><text x="897" y="508">Cited answer</text>
+    </g>
+    <g fill="#8b8479" font-size="14">
+      <text x="132" y="303">Uploaded by HR.</text><text x="132" y="325">Nothing is indexed</text><text x="132" y="347">until someone does.</text>
+      <text x="387" y="303">Text plus the page it</text><text x="387" y="325">came from, then split</text><text x="387" y="347">into fixed chunks.</text>
+      <text x="642" y="303">One vector per chunk,</text><text x="642" y="325">batched into a single</text><text x="642" y="347">serving call.</text>
+      <text x="897" y="303">A NumPy array and a</text><text x="897" y="325">JSON manifest. There</text><text x="897" y="347">is no vector database.</text>
+      <text x="132" y="538">Embedded the same</text><text x="132" y="560">way the chunks were,</text><text x="132" y="582">by the same endpoint.</text>
+      <text x="387" y="538">Cosine over the vectors</text><text x="387" y="560">and keyword overlap</text><text x="387" y="582">over the raw text.</text>
+      <text x="642" y="538">Reciprocal rank fusion.</text><text x="642" y="560">Two orderings, one list,</text><text x="642" y="582">no weights to tune.</text>
+      <text x="897" y="538">Filename and page for</text><text x="897" y="560">every claim, or it says</text><text x="897" y="582">the policy is not there.</text>
+    </g>
+  </g>
+
+  <g stroke="#6fb6c4" stroke-width="3" fill="none">
+    <path d="M325 300h24"/><path d="M580 300h24"/><path d="M835 300h24"/>
+    <path d="M325 535h24"/><path d="M580 535h24"/><path d="M835 535h24"/>
+  </g>
+  <g fill="#6fb6c4">
+    <path d="M365 300l-16-8v16z"/><path d="M620 300l-16-8v16z"/><path d="M875 300l-16-8v16z"/>
+    <path d="M365 535l-16-8v16z"/><path d="M620 535l-16-8v16z"/><path d="M875 535l-16-8v16z"/>
+  </g>
+
+  <path d="M982 365v50H472v39" stroke="#6fb6c4" stroke-width="2" stroke-dasharray="7 6" fill="none" opacity="0.75"/>
+  <path d="M472 470l-8-16h16z" fill="#6fb6c4" opacity="0.75"/>
+  <text x="727" y="408" fill="#8b8479" font-family="Arial" font-size="14" text-anchor="middle">the index is the only thing the two halves share</text>
+
+  <text x="110" y="694" fill="#6fb6c4" font-family="Arial" font-size="18">Python · FastAPI · SQLite · NumPy · Databricks Model Serving</text>
+</svg>
