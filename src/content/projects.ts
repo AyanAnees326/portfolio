@@ -496,7 +496,7 @@ export const projects: Project[] = [
       },
     ],
     links: [
-      { label: 'Live site', href: 'https://portfoliotemp-phi.vercel.app' },
+      { label: 'Live site', href: 'https://portfolio-tau-tan-99.vercel.app' },
       { label: 'Source code', href: 'https://github.com/AyanAnees326/portfolio' },
     ],
     study: {

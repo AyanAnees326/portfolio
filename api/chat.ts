@@ -33,7 +33,7 @@ const MAX_QUESTION_LEN = 500;
 const MAX_TOKENS = 400;
 const MAX_HISTORY_TURNS = 6;
 const MAX_HISTORY_CONTENT = 1_000;
-const CANONICAL_ORIGIN = 'https://portfoliotemp-phi.vercel.app';
+const CANONICAL_ORIGIN = 'https://portfolio-tau-tan-99.vercel.app';
 const RESPONSE_HEADERS = {
   'Cache-Control': 'no-store',
   'Content-Type': 'application/json; charset=utf-8',

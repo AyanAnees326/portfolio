@@ -1,6 +1,6 @@
 # Deployment and provider setup
 
-The canonical production URL is `https://portfoliotemp-phi.vercel.app`. Deploy from the repository root with Vercel's Git integration or `vercel --prod`; the build command and SPA rewrites are already defined in `vercel.json`.
+The canonical production URL is `https://portfolio-tau-tan-99.vercel.app`. Deploy from the repository root with Vercel's Git integration or `vercel --prod`; the build command and SPA rewrites are already defined in `vercel.json`.
 
 ## Environment variables
 

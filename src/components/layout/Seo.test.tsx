@@ -8,6 +8,6 @@ describe('route metadata', () => {
     render(<MemoryRouter initialEntries={['/work/agent-platform']}><Seo /></MemoryRouter>);
     expect(document.title).toContain('Invoice and Purchase Order Pipeline');
     expect(document.querySelector('meta[name="description"]')?.getAttribute('content')).toContain('NICL');
-    expect(document.querySelector('meta[property="og:url"]')?.getAttribute('content')).toBe('https://portfoliotemp-phi.vercel.app/work/agent-platform');
+    expect(document.querySelector('meta[property="og:url"]')?.getAttribute('content')).toBe('https://portfolio-tau-tan-99.vercel.app/work/agent-platform');
   });
 });
