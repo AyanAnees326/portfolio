@@ -8,7 +8,7 @@ describe('canonical public content', () => {
   it('contains only approved public contacts', () => {
     expect(publicProfile.contacts.github).toBe('https://github.com/AyanAnees326');
     expect(publicProfile.contacts.whatsapp).toBe('https://wa.me/923234061107');
-    expect(publicProfile.contacts).not.toHaveProperty('linkedin');
+    expect(publicProfile.contacts.linkedin).toBe('https://www.linkedin.com/in/ayan-anees326/');
   });
 
   it('keeps internship and education facts aligned', () => {

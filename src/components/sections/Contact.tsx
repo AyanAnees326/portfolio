@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Check, Github, Mail, MessageCircle, Send } from 'lucide-react';
+import { Check, Github, Linkedin, Mail, MessageCircle, Send } from 'lucide-react';
 import { Section } from '@/components/ui/Section';
 import { SectionHeading } from '@/components/ui/SectionHeading';
 import { Reveal, LetterSwap } from '@/components/motion';
@@ -53,6 +53,16 @@ export function Contact() {
   const socials = [
     { icon: Mail, label: 'Email', value: site.links.email, href: `mailto:${site.links.email}` },
     { icon: Github, label: 'GitHub', value: 'View my code', href: site.links.github },
+    ...(site.links.linkedin
+      ? [
+          {
+            icon: Linkedin,
+            label: 'LinkedIn',
+            value: 'Connect with me',
+            href: site.links.linkedin,
+          },
+        ]
+      : []),
     ...(site.links.whatsapp
       ? [
           {

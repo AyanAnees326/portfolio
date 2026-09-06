@@ -1,4 +1,4 @@
-import { Github, Mail, MessageCircle, ArrowUp } from 'lucide-react';
+import { Github, Linkedin, Mail, MessageCircle, ArrowUp } from 'lucide-react';
 import { NAV_SECTIONS, site } from '@/content/site';
 import { Wheel } from '@/components/ui/Wheel';
 import { LetterSwap } from '@/components/motion';
@@ -8,6 +8,7 @@ export function Footer() {
   const socials = [
     { icon: Mail, href: `mailto:${site.links.email}`, label: 'Email' },
     { icon: Github, href: site.links.github, label: 'GitHub' },
+    ...(site.links.linkedin ? [{ icon: Linkedin, href: site.links.linkedin, label: 'LinkedIn' }] : []),
     ...(site.links.whatsapp ? [{ icon: MessageCircle, href: site.links.whatsapp, label: 'WhatsApp' }] : []),
     ...(site.links.resume ? [{ icon: Mail, href: site.links.resume, label: 'Résumé' }] : []),
   ];
