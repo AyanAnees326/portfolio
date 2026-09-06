@@ -100,13 +100,29 @@ function extractReply(data: unknown): string | null {
   return typeof content === 'string' && content.trim() ? content.trim() : null;
 }
 
+/**
+ * Why a tier failed, to the Vercel function log only.
+ *
+ * The cascade catches everything so the UI degrades quietly, which also means a
+ * missing variable, a 403 and a timeout all look identical from outside. This
+ * is the only way to tell them apart. It logs variable NAMES, HTTP statuses and
+ * provider error bodies, never a credential value.
+ */
+function logFail(stage: string, detail: unknown): void {
+  const text = detail instanceof Error ? detail.message : String(detail);
+  console.error(`[chat] ${stage}: ${text.slice(0, 300)}`);
+}
+
 let databricksOAuth: { token: string; expiresAt: number } | null = null;
 
 async function databricksToken(host: string): Promise<string | null> {
   if (databricksOAuth && databricksOAuth.expiresAt > Date.now() + 60_000) return databricksOAuth.token;
   const clientId = process.env.DATABRICKS_CLIENT_ID;
   const clientSecret = process.env.DATABRICKS_CLIENT_SECRET;
-  if (!clientId || !clientSecret) return null;
+  if (!clientId || !clientSecret) {
+    logFail('databricks oauth', `unset: ${[!clientId && 'DATABRICKS_CLIENT_ID', !clientSecret && 'DATABRICKS_CLIENT_SECRET'].filter(Boolean).join(', ')}`);
+    return null;
+  }
   const response = await fetch(`${host}/oidc/v1/token`, {
     method: 'POST',
     headers: {
@@ -116,9 +132,16 @@ async function databricksToken(host: string): Promise<string | null> {
     body: new URLSearchParams({ grant_type: 'client_credentials', scope: 'all-apis' }),
     signal: AbortSignal.timeout(5_000),
   });
-  if (!response.ok) throw new Error(`databricks oauth ${response.status}`);
+  if (!response.ok) {
+    // 401 means the client id and secret do not match a service principal.
+    logFail('databricks oauth', `${response.status} ${(await response.text()).slice(0, 200)}`);
+    throw new Error(`databricks oauth ${response.status}`);
+  }
   const data = (await response.json()) as { access_token?: string; expires_in?: number };
-  if (!data.access_token) return null;
+  if (!data.access_token) {
+    logFail('databricks oauth', 'token response carried no access_token');
+    return null;
+  }
   databricksOAuth = { token: data.access_token, expiresAt: Date.now() + (data.expires_in ?? 3600) * 1000 };
   return data.access_token;
 }
@@ -127,7 +150,10 @@ async function databricksToken(host: string): Promise<string | null> {
 async function callDatabricks(messages: unknown[]): Promise<string | null> {
   const host = process.env.DATABRICKS_HOST?.replace(/\/+$/, '');
   const endpoint = process.env.DATABRICKS_ENDPOINT;
-  if (!host || !endpoint) return null;
+  if (!host || !endpoint) {
+    logFail('databricks', `unset: ${[!host && 'DATABRICKS_HOST', !endpoint && 'DATABRICKS_ENDPOINT'].filter(Boolean).join(', ')}`);
+    return null;
+  }
   const token = await databricksToken(host);
   if (!token) return null;
 
@@ -141,8 +167,17 @@ async function callDatabricks(messages: unknown[]): Promise<string | null> {
     signal: AbortSignal.timeout(8_000),
   });
 
-  if (!res.ok) throw new Error(`databricks ${res.status}`);
-  return extractReply(await res.json());
+  if (!res.ok) {
+    // 403 means the service principal lacks CAN_QUERY on the endpoint.
+    // 404 means DATABRICKS_ENDPOINT does not name a serving endpoint.
+    logFail('databricks invocations', `${res.status} ${(await res.text()).slice(0, 200)}`);
+    throw new Error(`databricks ${res.status}`);
+  }
+  const reply = extractReply(await res.json());
+  // A reasoning model can spend the whole MAX_TOKENS budget before emitting any
+  // content, which arrives here as a successful call with nothing in it.
+  if (!reply) logFail('databricks invocations', '200 but no content in choices[0].message.content');
+  return reply;
 }
 
 /**
@@ -153,10 +188,13 @@ async function callDatabricks(messages: unknown[]): Promise<string | null> {
  * dies in a few months. We fetch the live list and filter to zero-price, and
  * only fall back to the seed list if that request itself fails.
  */
+// `openrouter/free` is an alias that routes to whatever free model is up, so it
+// is the one id that does not rot. The other two are named backstops in case the
+// alias itself is ever retired.
 const SEED_FREE_MODELS = [
-  'meta-llama/llama-3.3-70b-instruct:free',
-  'deepseek/deepseek-chat-v3-0324:free',
-  'google/gemma-3-27b-it:free',
+  'openrouter/free',
+  'nvidia/nemotron-3-ultra-550b-a55b:free',
+  'google/gemma-4-31b-it:free',
 ];
 
 let cachedFreeModels: { at: number; ids: string[] } | null = null;
@@ -171,26 +209,37 @@ async function freeModels(key: string): Promise<string[]> {
       headers: { Authorization: `Bearer ${key}` },
       signal: AbortSignal.timeout(5_000),
     });
-    if (!res.ok) throw new Error(`models ${res.status}`);
+    if (!res.ok) throw new Error(`models ${res.status} ${(await res.text()).slice(0, 200)}`);
 
     const json = (await res.json()) as {
-      data?: { id: string; pricing?: { prompt?: string; completion?: string } }[];
+      data?: {
+        id: string;
+        context_length?: number;
+        architecture?: { modality?: string };
+        pricing?: { prompt?: string; completion?: string };
+      }[];
     };
     const ids = (json.data ?? [])
       .filter(
         (m) =>
           Number(m.pricing?.prompt ?? '1') === 0 &&
-          Number(m.pricing?.completion ?? '1') === 0,
+          Number(m.pricing?.completion ?? '1') === 0 &&
+          // Some zero-price models emit audio or images. Asking one of those for
+          // a chat completion returns nothing this endpoint can use.
+          (m.architecture?.modality ?? '').endsWith('->text'),
       )
+      // Rank by context window. It is a decent proxy for a general chat model
+      // over a small or domain-specific one, and it guarantees room for the
+      // 8,000 characters of retrieved context below.
+      .sort((a, b) => (b.context_length ?? 0) - (a.context_length ?? 0))
       .map((m) => m.id)
-      // Prefer instruction-tuned chat models over the long tail.
-      .sort((a, b) => Number(b.includes('instruct')) - Number(a.includes('instruct')))
       .slice(0, 6);
 
     const list = ids.length > 0 ? ids : SEED_FREE_MODELS;
     cachedFreeModels = { at: Date.now(), ids: list };
     return list;
-  } catch {
+  } catch (error) {
+    logFail('openrouter models', error);
     return SEED_FREE_MODELS;
   }
 }
@@ -198,9 +247,13 @@ async function freeModels(key: string): Promise<string[]> {
 /** Tier 2: walk the free-model list until one answers. */
 async function callOpenRouter(messages: unknown[]): Promise<string | null> {
   const key = process.env.OPENROUTER_API_KEY;
-  if (!key) return null;
+  if (!key) {
+    logFail('openrouter', 'unset: OPENROUTER_API_KEY');
+    return null;
+  }
 
-  for (const model of await freeModels(key)) {
+  const candidates = await freeModels(key);
+  for (const model of candidates) {
     try {
       const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
         method: 'POST',
@@ -211,14 +264,22 @@ async function callOpenRouter(messages: unknown[]): Promise<string | null> {
         body: JSON.stringify({ model, messages, max_tokens: MAX_TOKENS, temperature: 0.3 }),
         signal: AbortSignal.timeout(12_000),
       });
-      if (!res.ok) continue;
+      if (!res.ok) {
+        // 404 here is usually the account's privacy setting rather than a bad
+        // id: free endpoints are withheld until prompt logging is allowed.
+        logFail('openrouter', `${model} ${res.status} ${(await res.text()).slice(0, 160)}`);
+        continue;
+      }
 
       const reply = extractReply(await res.json());
       if (reply) return reply;
-    } catch {
+      logFail('openrouter', `${model} 200 but no content`);
+    } catch (error) {
       // Try the next candidate rather than giving up on the whole tier.
+      logFail('openrouter', `${model} ${error instanceof Error ? error.message : error}`);
     }
   }
+  logFail('openrouter', `all ${candidates.length} candidates failed: ${candidates.join(', ')}`);
   return null;
 }
 
@@ -258,8 +319,9 @@ export default async function handler(request: Request): Promise<Response> {
   try {
     const reply = await callDatabricks(messages);
     if (reply) return json({ reply, provider: 'databricks', sources });
-  } catch {
+  } catch (error) {
     // Fall through to tier 2: quota, expired token, cold endpoint, timeout.
+    logFail('databricks', error);
   }
 
   const orReply = await callOpenRouter(messages);
