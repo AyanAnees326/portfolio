@@ -31,14 +31,14 @@ export const about = {
 
   stats: [
     { value: 12, suffix: '', label: 'live interface demos' },
-    { value: 1, suffix: '', label: 'AI internship' },
+    { value: 1, suffix: '', label: 'Forward Deployed Engineering internship' },
     { value: 2027, suffix: '', label: 'expected graduation' },
     { value: 1992, suffix: '', label: 'Suzuki Bandit 250' },
   ],
 
   experience: {
     organization: 'NICL',
-    role: 'AI Intern',
+    role: 'Forward Deployed Engineering Intern',
     period: 'June 2026–September 2026',
     description:
       'Contributing to an internal AI operations and document-processing platform built around human-supervised workflows.',

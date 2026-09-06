@@ -94,9 +94,10 @@ export function About() {
             <div className="py-6 md:pr-10">
               <p className="eyebrow">Experience</p>
               <div className="mt-4 flex items-baseline justify-between gap-4">
-                <h3 className="text-[1.55rem]">{about.experience.organization} · {about.experience.role}</h3>
+                <h3 className="text-[1.55rem]">{about.experience.organization}</h3>
                 <span className="shrink-0 text-[12px] text-ink-3">{about.experience.period}</span>
               </div>
+              <p className="mt-1 text-[15px] text-ink-3">{about.experience.role}</p>
               <p className="mt-3 text-[15px] leading-relaxed text-ink-2">{about.experience.description}</p>
             </div>
             <div className="border-t border-rule py-6 md:border-t-0 md:border-l md:pl-10">
